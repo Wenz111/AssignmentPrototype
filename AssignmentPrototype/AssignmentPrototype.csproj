@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AssignmentPrototype</RootNamespace>
     <AssemblyName>AssignmentPrototype</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,25 +43,28 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -67,19 +72,178 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="App_Data\ArtGallery.mdf" />
+    <Content Include="App_Data\ArtGallery_log.ldf">
+      <DependentUpon>ArtGallery.mdf</DependentUpon>
+    </Content>
+    <Content Include="CustomerBrowse.aspx" />
+    <Content Include="CustomerContactUs.aspx" />
+    <Content Include="CustomerLogin.aspx" />
+    <Content Include="CustomerProfile.aspx" />
+    <Content Include="CustomerShoppingCart.aspx" />
+    <Content Include="CustomerSignUp.aspx" />
+    <Content Include="CustomerWishList.aspx" />
+    <Content Include="ProductDetail.aspx" />
+    <Content Include="PurchaseHistory.aspx" />
+    <Content Include="SellerActivity.aspx" />
+    <Content Include="SellerContactUs.aspx" />
+    <Content Include="SellerLogin.aspx" />
+    <Content Include="SellerProfile.aspx" />
+    <Content Include="SellerSignUp.aspx" />
+    <Content Include="SellerUpload.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerBrowse.aspx.cs">
+      <DependentUpon>CustomerBrowse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerBrowse.aspx.designer.cs">
+      <DependentUpon>CustomerBrowse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerContactUs.aspx.cs">
+      <DependentUpon>CustomerContactUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerContactUs.aspx.designer.cs">
+      <DependentUpon>CustomerContactUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerLogin.aspx.cs">
+      <DependentUpon>CustomerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerLogin.aspx.designer.cs">
+      <DependentUpon>CustomerLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerProfile.aspx.cs">
+      <DependentUpon>CustomerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerProfile.aspx.designer.cs">
+      <DependentUpon>CustomerProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerShoppingCart.aspx.cs">
+      <DependentUpon>CustomerShoppingCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerShoppingCart.aspx.designer.cs">
+      <DependentUpon>CustomerShoppingCart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerSignUp.aspx.cs">
+      <DependentUpon>CustomerSignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerSignUp.aspx.designer.cs">
+      <DependentUpon>CustomerSignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerWishList.aspx.cs">
+      <DependentUpon>CustomerWishList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerWishList.aspx.designer.cs">
+      <DependentUpon>CustomerWishList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductDetail.aspx.cs">
+      <DependentUpon>ProductDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductDetail.aspx.designer.cs">
+      <DependentUpon>ProductDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseHistory.aspx.cs">
+      <DependentUpon>PurchaseHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PurchaseHistory.aspx.designer.cs">
+      <DependentUpon>PurchaseHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerActivity.aspx.cs">
+      <DependentUpon>SellerActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerActivity.aspx.designer.cs">
+      <DependentUpon>SellerActivity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerContactUs.aspx.cs">
+      <DependentUpon>SellerContactUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerContactUs.aspx.designer.cs">
+      <DependentUpon>SellerContactUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerLogin.aspx.cs">
+      <DependentUpon>SellerLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerLogin.aspx.designer.cs">
+      <DependentUpon>SellerLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerProfile.aspx.cs">
+      <DependentUpon>SellerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerProfile.aspx.designer.cs">
+      <DependentUpon>SellerProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerSignUp.aspx.cs">
+      <DependentUpon>SellerSignUp.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerSignUp.aspx.designer.cs">
+      <DependentUpon>SellerSignUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerUpload.aspx.cs">
+      <DependentUpon>SellerUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerUpload.aspx.designer.cs">
+      <DependentUpon>SellerUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SiteCustomer.Master.cs">
+      <DependentUpon>SiteCustomer.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SiteCustomer.Master.designer.cs">
+      <DependentUpon>SiteCustomer.Master</DependentUpon>
+    </Compile>
+    <Compile Include="SiteSeller.Master.cs">
+      <DependentUpon>SiteSeller.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SiteSeller.Master.designer.cs">
+      <DependentUpon>SiteSeller.Master</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataContext.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataContext.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="DataContext.dbml.layout">
+      <DependentUpon>DataContext.dbml</DependentUpon>
+    </None>
     <None Include="packages.config" />
+    <Content Include="SiteCustomer.Master" />
+    <Content Include="SiteSeller.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

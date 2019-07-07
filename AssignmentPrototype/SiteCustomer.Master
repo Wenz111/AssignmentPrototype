@@ -1,0 +1,171 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteCustomer.master.cs" Inherits="AssignmentPrototype.SiteCustomer" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="title" runat="server"></asp:ContentPlaceHolder>
+    </title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+
+            @import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+            #cssmenu {
+              background: #ec8a44;
+              width: auto;
+            }
+            #cssmenu ul {
+              list-style: none;
+              margin: 0;
+              padding: 0;
+              line-height: 1;
+              display: block;
+              zoom: 1;
+            }
+            #cssmenu ul:after {
+              content: " ";
+              display: block;
+              font-size: 0;
+              height: 0;
+              clear: both;
+              visibility: hidden;
+            }
+            #cssmenu ul li {
+              display: inline-block;
+              padding: 0;
+              margin: 0;
+            }
+            #cssmenu.align-right ul li {
+              float: right;
+            }
+            #cssmenu.align-center ul {
+              text-align: center;
+            }
+            #cssmenu ul li a {
+              color: #ffe5cc;
+              text-decoration: none;
+              display: block;
+              padding: 15px 25px;
+              font-family: 'Open Sans', sans-serif;
+              font-weight: 700;
+              text-transform: uppercase;
+              font-size: 14px;
+              position: relative;
+              -webkit-transition: color .25s;
+              -moz-transition: color .25s;
+              -ms-transition: color .25s;
+              -o-transition: color .25s;
+              transition: color .25s;
+            }
+            #cssmenu ul li a:hover {
+              color: #333333;
+            }
+            #cssmenu ul li a:hover:before {
+              width: 100%;
+            }
+            #cssmenu ul li a:after {
+              content: "";
+              display: block;
+              position: absolute;
+              right: -3px;
+              top: 19px;
+              height: 6px;
+              width: 6px;
+              background: #ffffff;
+              opacity: .5;
+            }
+            #cssmenu ul li a:before {
+              content: "";
+              display: block;
+              position: absolute;
+              left: 0;
+              bottom: 0;
+              height: 3px;
+              width: 0;
+              background: #333333;
+              -webkit-transition: width .25s;
+              -moz-transition: width .25s;
+              -ms-transition: width .25s;
+              -o-transition: width .25s;
+              transition: width .25s;
+            }
+            #cssmenu ul li.last > a:after,
+            #cssmenu ul li:last-child > a:after {
+              display: none;
+            }
+
+            #cssmenu.align-right li.last > a:after,
+            #cssmenu.align-right li:last-child > a:after {
+              display: block;
+            }
+            #cssmenu.align-right li:first-child a:after {
+              display: none;
+            }
+
+            .wrapper {
+                width: 950px;
+                background-color: #f2f2f2;
+                margin: auto;
+            }
+
+            .clear {
+                clear: both;
+            }
+
+            .contentBody {
+                margin-top: 5px;
+                background-color: #f2f2f2;
+                border-radius: 5px 5px 5px 5px;
+            }
+
+            .footerContent {
+                margin-top: 5px;
+                background-color: #f2f2f2;
+                border-radius: 5px 5px 5px 5px;
+            }
+
+            .footer {
+                margin-top: 5px;
+                background-color: #ec8a44;
+                border-radius: 5px 5px 5px 5px;
+            }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div class="wrapper">
+        <div id='cssmenu'>
+        <ul>
+           <li class='active1'><a href='CustomerBrowse.aspx'><span>Browse</span></a></li>
+            <li class='active2'><a href='CustomerWishList.aspx'><span>Wish List</span></a></li>
+            <li class='active3'><a href='CustomerShoppingCart.aspx'><span>Shopping Cart</span></a></li>
+           <li class='active4'><a href='PurchaseHistory.aspx'><span>Purchase History</span></a></li>
+           <li class='active5'><a href='CustomerProfile.aspx'><span>Profile</span></a></li>
+           <li class='last active6'><a href='CustomerContactUs.aspx'><span>Contact Us</span></a></li>
+        </ul>
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="contentBody">
+        <asp:ContentPlaceHolder ID="contentBody" runat="server"></asp:ContentPlaceHolder>
+        </div>
+
+
+        <div class="clear"></div>
+
+        <div class="footerContent">
+            <asp:ContentPlaceHolder ID="footerContent" runat="server"></asp:ContentPlaceHolder>
+        </div>
+
+        <div class="footer">
+            <center>Copyright © 2019</center>
+            <audio src="/bgMusic/Maquia.mp3" autoplay></audio>
+        </div>
+        </div>
+    </form>
+</body>
+</html>

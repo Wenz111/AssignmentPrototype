@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ArtGallery" Class="DataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\ArtGallery.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ArtistUpload" Member="ArtistUploads">
+    <Type Name="ArtistUpload">
+      <Column Name="productID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="authorEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="productname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="productPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Column Name="artImage" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="ArtistUpload_PurchaseDetail" Member="PurchaseDetails" ThisKey="productID" OtherKey="productID" Type="PurchaseDetail" />
+      <Association Name="ArtistUpload_ShoppingCart" Member="ShoppingCarts" ThisKey="productID" OtherKey="productID" Type="ShoppingCart" />
+      <Association Name="ArtistUpload_WishList" Member="WishLists" ThisKey="productID" OtherKey="productID" Type="WishList" />
+      <Association Name="ArtistTable_ArtistUpload" Member="ArtistTable" ThisKey="authorEmail" OtherKey="authorEmail" Type="ArtistTable" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CustomerTable" Member="CustomerTables">
+    <Type Name="CustomerTable">
+      <Column Name="CustomerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CustomerUsername" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CustomerPswd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CustomerEmail" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="CustomerName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CustomerGender" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="CustomerPhoneNum" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CustomerDOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="CustomerHouseAddress" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Association Name="CustomerTable_Purchase" Member="Purchases" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="Purchase" />
+      <Association Name="CustomerTable_ShoppingCart" Member="ShoppingCarts" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="ShoppingCart" />
+      <Association Name="CustomerTable_WishList" Member="WishLists" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="WishList" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Purchase" Member="Purchases">
+    <Type Name="Purchase">
+      <Column Name="PaymentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PurchaseHistoryDetailsID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PaymentDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PaymentAmount" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Column Name="PaymentType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="customerEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CustomerTable_Purchase" Member="CustomerTable" ThisKey="customerEmail" OtherKey="CustomerEmail" Type="CustomerTable" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PurchaseDetails" Member="PurchaseDetails">
+    <Type Name="PurchaseDetail">
+      <Column Name="PurchaseHistoryDetailsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="productID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="productName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unitPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Association Name="ArtistUpload_PurchaseDetail" Member="ArtistUpload" ThisKey="productID" OtherKey="productID" Type="ArtistUpload" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ShoppingCart" Member="ShoppingCarts">
+    <Type Name="ShoppingCart">
+      <Column Name="cartID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="productID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="productName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unitPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Column Name="customerEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="CustomerTable_ShoppingCart" Member="CustomerTable" ThisKey="customerEmail" OtherKey="CustomerEmail" Type="CustomerTable" IsForeignKey="true" />
+      <Association Name="ArtistUpload_ShoppingCart" Member="ArtistUpload" ThisKey="productID" OtherKey="productID" Type="ArtistUpload" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WishList" Member="WishLists">
+    <Type Name="WishList">
+      <Column Name="wishListID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="productID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unitPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Column Name="customerEmail" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="CustomerTable_WishList" Member="CustomerTable" ThisKey="customerEmail" OtherKey="CustomerEmail" Type="CustomerTable" IsForeignKey="true" />
+      <Association Name="ArtistUpload_WishList" Member="ArtistUpload" ThisKey="productID" OtherKey="productID" Type="ArtistUpload" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ArtistTable" Member="ArtistTables">
+    <Type Name="ArtistTable">
+      <Column Name="authorID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="contact" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="authorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="authorEmail" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="authorPswd" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="authorUsername" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="authorGender" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="authorDOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="ArtistTable_ArtistUpload" Member="ArtistUploads" ThisKey="authorEmail" OtherKey="authorEmail" Type="ArtistUpload" />
+    </Type>
+  </Table>
+</Database>
