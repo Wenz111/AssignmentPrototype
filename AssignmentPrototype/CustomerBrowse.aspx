@@ -31,7 +31,9 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
 
-    <%--    <div class="TopBar">
+    <%-- include search and filter (sort by price date etc), and with / include user's name in a top right corner!    
+        
+        <div class="TopBar">
         <div class="Logo">
             Logo
         </div>
@@ -46,8 +48,6 @@
 
 
             <div class="w3-third w3-container w3-margin-bottom" style="float: left">
-
-
 
                 <div class="w3-container w3-white">
                     <br />

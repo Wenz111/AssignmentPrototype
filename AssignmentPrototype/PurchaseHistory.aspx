@@ -23,6 +23,7 @@
         &nbsp;
     </p>
     <p class="auto-style1">
+        <center>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Height="208px" Width="712px" DataSourceID="LinqDataSource1" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None">
             <AlternatingRowStyle BackColor="PaleGoldenrod" />
             <Columns>
@@ -40,6 +41,7 @@
             <SortedDescendingCellStyle BackColor="#E1DB9C" />
             <SortedDescendingHeaderStyle BackColor="#C2A47B" />
         </asp:GridView>
+            </center>
     </p>
     <p>
         &nbsp;

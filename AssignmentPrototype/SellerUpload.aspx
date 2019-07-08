@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteSeller.Master" AutoEventWireup="true" CodeBehind="SellerUpload.aspx.cs" Inherits="AssignmentPrototype.SellerUpload" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
-    Upload
+    Upload Art Form
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <meta charset="UTF-8">

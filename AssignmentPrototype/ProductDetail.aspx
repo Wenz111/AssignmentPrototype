@@ -32,8 +32,8 @@
     <div>
         <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1" DataKeyField="productID" CssClass="align-center">
             <ItemTemplate>
-                 <asp:Image ID="Image1" runat="server"  class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("artImage")) %>' Height="200px" Width="409px" />
-              </ItemTemplate>
+                 <asp:Image ID="Image1" runat="server"  class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("artImage")) %>' Style="max-height: 50%; max-width: 50%;" />
+            </ItemTemplate>
         </asp:DataList> 
     </div> 
     <div>

@@ -15,7 +15,7 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
-    This is Contact Us Page...<br /><br />
+    <br />
 
     Address:<br />
     S-40,67,Jalan Taman Ibu Kota,<br />
@@ -27,6 +27,7 @@
 
     Email:<br />
     abcbookstore@taruc.com
+    <br />
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="footerContent" runat="server">

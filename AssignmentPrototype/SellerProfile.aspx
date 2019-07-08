@@ -63,13 +63,8 @@
         button, [type=button], [type=reset], [type=submit] {
             -webkit-appearance: button
         }
-    </style>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
-    This is Seller Profile...<br />
-    <br />
-    <style type="text/css">
-        .auto-style2 {
+
+                .auto-style2 {
             width: 253px;
         }
 
@@ -88,8 +83,9 @@
         }
 
         .auto-style23 {
-            width: 100%;
+            width: 78%;
             height: 526px;
+            margin-left: 103px;
         }
 
         .auto-style24 {
@@ -121,6 +117,10 @@
             width: 253px;
         }
     </style>
+
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
+    <br />
 
     <table class="auto-style23">
         <tr>

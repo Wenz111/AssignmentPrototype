@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteCustomer.Master" AutoEventWireup="true" CodeBehind="CustomerShoppingCart.aspx.cs" Inherits="AssignmentPrototype.CustomerShoppingCart" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
+    Shopping Cart
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <style>
@@ -15,6 +17,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
     <div>
     </div>
+    <center>
+        <br /><br />
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" Width="637px" Height="215px" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None">
         <AlternatingRowStyle BackColor="PaleGoldenrod" />
         <Columns>
@@ -36,14 +40,17 @@
         <SortedDescendingHeaderStyle BackColor="#C2A47B" />
 
     </asp:GridView>
+        </center>
+    <center>
     <br />
-    Price in total: RM<asp:Label ID="PriceInTotal" runat="server"></asp:Label>
+    Price in total: <b>RM<asp:Label ID="PriceInTotal" runat="server"></asp:Label></b>
     <br />
     <br />
     <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Make Payment" />
     <br />
     <br />
     <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/CustomerBrowse.aspx">Continue Shopping</asp:HyperLink>
+    </center>
     <br />
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [productID], [productName], [quantity], [unitPrice] FROM [ShoppingCart] WHERE ([customerEmail] = @customerEmail)">
         <SelectParameters>

@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteSeller.Master" AutoEventWireup="true" CodeBehind="SellerActivity.aspx.cs" Inherits="AssignmentPrototype.SellerActivity" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
+    Seller's Activity
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <style>

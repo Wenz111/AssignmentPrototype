@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace AssignmentPrototype
@@ -71,18 +72,39 @@ namespace AssignmentPrototype
 
                 cmd.ExecuteNonQuery();
 
+                // Get Product quantity from seller and deduct it
+                DataContextDataContext db1 = new DataContextDataContext();
+                var deductProductQty = from p in db1.ArtistUploads
+                                       join o in db1.ShoppingCarts on p.productID equals o.productID
+                                       where p.productID == o.productID
+                                       select p;
+
+                if (deductProductQty != null)
+                {
+                    foreach (var deductQty in deductProductQty)
+                    {
+                        deductQty.quantity = deductQty.quantity - 1;
+                    }
+                    db1.SubmitChanges();
+                }
+
                 // Clear Payment Table
                 DataContextDataContext db2 = new DataContextDataContext();
-                var clearPaymentTable = (from p in db2.Purchases
-                                         where p.customerEmail == (string) Session["user"]
-                                         select p).FirstOrDefault();
+                var clearShoppingCartTable = from p in db2.ShoppingCarts
+                                             where p.customerEmail == (string)Session["user"]
+                                             select p;
 
-                if (clearPaymentTable != null)
+                if (clearShoppingCartTable != null)
                 {
-                    db2.Purchases.DeleteOnSubmit(clearPaymentTable);
+                    db2.ShoppingCarts.DeleteAllOnSubmit(clearShoppingCartTable.ToList());
+                    db2.SubmitChanges();
                 }
 
                 Response.Write("<script>alert('Your order has succesfully made!')</script>");
+                HtmlMeta oScript = new HtmlMeta();
+                oScript.Attributes.Add("http-equiv", "REFRESH");
+                oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
+                Page.Header.Controls.Add(oScript);
             }
         }
     }

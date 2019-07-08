@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace AssignmentPrototype
@@ -82,7 +80,7 @@ namespace AssignmentPrototype
 
             if (e.CommandName == "removeFromWishList")
             {
-                // Get Product ID & Wish list ID
+                // Get Wish list ID
                 int wListID = Convert.ToInt32(e.CommandArgument);
 
                 // Delete this product from wish list

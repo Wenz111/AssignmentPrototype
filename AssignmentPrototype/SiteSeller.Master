@@ -9,7 +9,7 @@
     </title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    <audio preload="auto" src="/bgMusic/Maquia.mp3" loop="true" autobuffer>
+    <audio preload="auto" src="/bgMusic/Aladdin.mp3" loop="true" autobuffer>
         Unsupported in Firefox
     </audio>
 

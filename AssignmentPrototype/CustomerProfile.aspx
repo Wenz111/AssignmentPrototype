@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteCustomer.Master" AutoEventWireup="true" CodeBehind="CustomerProfile.aspx.cs" Inherits="AssignmentPrototype.CustomerProfile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
-    Profile
+    Customer's Profile
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <style type="text/css">
@@ -63,12 +63,7 @@
         button, [type=button], [type=reset], [type=submit] {
             -webkit-appearance: button
         }
-    </style>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
-    This is Customer Profile...<br />
-    <br />
-    <style type="text/css">
+
         .auto-style2 {
             width: 253px;
         }
@@ -88,8 +83,9 @@
         }
 
         .auto-style23 {
-            width: 100%;
+            width: 75%;
             height: 526px;
+            margin-left: 156px;
         }
 
         .auto-style24 {
@@ -121,6 +117,9 @@
             width: 253px;
         }
     </style>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
+    <br />
 
     <table class="auto-style23">
         <tr>
