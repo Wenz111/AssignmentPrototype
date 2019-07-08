@@ -45,6 +45,13 @@ namespace AssignmentPrototype
 
         protected void addToWishlist_Click(object sender, EventArgs e)
         {
+                if (Session["user"] == null)
+                {
+                    string OriginalUrl = HttpContext.Current.Request.RawUrl;
+                    string LoginPageUrl = "CustomerLogin.aspx";
+                    HttpContext.Current.Response.Redirect(String.Format("{0}?ReturnUrl={1}", LoginPageUrl, OriginalUrl));
+                }
+
                 using (DataContextDataContext objDataContext = new DataContextDataContext())
                 {
 
@@ -79,7 +86,7 @@ namespace AssignmentPrototype
                 ShoppingCart newShoppingCart = new ShoppingCart();
                 newShoppingCart.productID = int.Parse(lblProductID.Text);
                 newShoppingCart.productName = lblProduct.Text;
-                newShoppingCart.quantity = int.Parse(lblQuantity.Text);
+                newShoppingCart.quantity = 1;
                 newShoppingCart.unitPrice = decimal.Parse(lblPrice.Text);
                 newShoppingCart.customerEmail = (string)Session["user"];
                 db.ShoppingCarts.InsertOnSubmit(newShoppingCart);

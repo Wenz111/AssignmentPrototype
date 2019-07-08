@@ -10,12 +10,28 @@
         #cssmenu ul li.active2 a:before {
         width: 100%;
         }
+
+        .addToCart {
+            height: 32px
+        }
+
+        .removeFromCart {
+            height: 25px;
+            background-color: peachpuff
+        }
+
+        body 
+        {
+            background-color: #f2f2f2;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
     <h1>Wish List</h1>
 
-    <asp:DataList ID="DataList1" runat="server">
+    <asp:Label ID="emptyWishListMessage" runat="server" Visible="false" Text=""></asp:Label>
+
+    <asp:DataList ID="DataList1" runat="server" OnItemCommand="DataList1_ItemCommand">
         <ItemTemplate>
             <hr />
             <table style="width:950px; margin: 0 auto;">
@@ -25,16 +41,19 @@
                             <asp:Image ID="Image1" Style="max-height: 100px; max-width: 100px; height: auto; width: auto;" runat="server" class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("artImage")).ToArray()) %>' Height="50px" Width="50px" />
                         </center>
                     </td>
-                    <td style="width:400px;">
+                    <td style="width:300px;">
                         <asp:Label ID="prodName" runat="server" Text='<%# Eval("productname") %>' />
                         <br />
-                        <h6>Author Email:<asp:Label ID="Label1" runat="server" Text='<%# Eval("authorEmail") %>' /></h6>
+                        <h6><asp:Label ID="Label2" runat="server" Text='<%# Eval("description") %>' /></h6>
+                        <h6>Author Name:<asp:Label ID="Label1" runat="server" Text='<%# Eval("authorName") %>' /></h6>
                         <%--delete button place here--%>
+                        <asp:ImageButton ID="removeFromCart" CssClass="removeFromCart" ImageUrl="/pic/garbage.png" CommandName="removeFromWishList" CommandArgument='<%# Eval("wishListID") %>' runat="server"></asp:ImageButton>
                     </td>
-                    <td style="width:200px;">RM<asp:Label ID="unitPrice" runat="server" Text='<%# Eval("unitPrice") %>' />
+                    <td style="width:300px;">RM<asp:Label ID="unitPrice" runat="server" Text='<%# Eval("unitPrice") %>' />
                     </td>
                     <td>
                         <%--Add to shopping cart button here--%>
+                        <asp:ImageButton ID="addToShoppingCart" CssClass="addToCart" ImageUrl="/pic/addToCart.png" CommandName="addToShoppingCart" CommandArgument='<%# Eval("productID") %>' runat="server"></asp:ImageButton>
                     </td>
                 </tr>
             </table>

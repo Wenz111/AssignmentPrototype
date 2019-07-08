@@ -70,6 +70,18 @@ namespace AssignmentPrototype
 
 
                 cmd.ExecuteNonQuery();
+
+                // Clear Payment Table
+                DataContextDataContext db2 = new DataContextDataContext();
+                var clearPaymentTable = (from p in db2.Purchases
+                                         where p.customerEmail == (string) Session["user"]
+                                         select p).FirstOrDefault();
+
+                if (clearPaymentTable != null)
+                {
+                    db2.Purchases.DeleteOnSubmit(clearPaymentTable);
+                }
+
                 Response.Write("<script>alert('Your order has succesfully made!')</script>");
             }
         }
