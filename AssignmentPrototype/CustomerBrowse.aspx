@@ -30,6 +30,21 @@
         body {
             background-color: #f2f2f2;
         }
+
+        .btnSize {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            top: 31px;
+        }
+
+        .btnClear {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            top: 9px;
+            left: -100px;
+        }
     </style>
 </asp:Content>
 
@@ -47,15 +62,39 @@
 
     <h1>Welcome to Art Gallery!</h1>
 
+    <div class="clear"></div>
+
+    <div id="search">         
+         <asp:TextBox ID="txtSearchBox" runat="server"></asp:TextBox>
+        <asp:ImageButton ID="btnSearch" CssClass="btnSize" ImageUrl="pic/searchButton.png" OnClick="btnSearch_Click" runat="server" />
+        <asp:ImageButton ID="btnSearchClear" CssClass="btnClear" ImageUrl="pic/delete (3).png" OnClick="btnClear_Click" runat="server" />
+        <br /><br />
+        <asp:Label ID="lblCount" runat="server" Visible="false"></asp:Label>
+     </div>
+
+    <div class="clear"></div>
+    <br />
+    <div>         
+         Sort By: <asp:DropDownList ID="ddlSortArtProduct" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlSortArtProduct_SelectedIndexChanged">
+             <asp:ListItem>Default</asp:ListItem>
+             <asp:ListItem>Lowest to Highest Price</asp:ListItem>
+             <asp:ListItem>Highest To Lowest Price</asp:ListItem>
+             <asp:ListItem>Oldest To Newest</asp:ListItem>
+             <asp:ListItem>Newest To Oldest</asp:ListItem>
+         </asp:DropDownList>
+     </div>
+    <br />
+    <div class="clear"></div>
+
     <asp:Repeater ID="Repeater1" runat="server" DataSourceID="SqlDataSource1">
         <ItemTemplate>
-
-
             <div class="w3-third w3-container w3-margin-bottom" style="float: left">
-
                 <div class="w3-container w3-white">
                     <br />
-                    <asp:Image ID="Image1" runat="server" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("artImage")) %>' Style="max-height: 100%; max-width: 100%;" class="w3-hover-opacity" />
+                   <%-- <asp:Image ID="Image1" runat="server" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("artImage")) %>' Style="max-height: 100%; max-width: 100%;" class="w3-hover-opacity" />--%>
+                    <center>
+                     <asp:Image ID="Image1" Style="max-height: 230px; max-width: 230px; height: auto; width: auto;" runat="server" class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("artImage")).ToArray()) %>' />
+                    </center>
                     <p>
                         <b>
                             <asp:Label ID="lblname1" runat="server" Text='<%# Eval("productname") %>'></asp:Label></b>
@@ -77,9 +116,9 @@
                     <br />
                 </div>
             </div>
-
         </ItemTemplate>
     </asp:Repeater>
+
     <br />
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [ArtistUpload]"></asp:SqlDataSource>
     <br />

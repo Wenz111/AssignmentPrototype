@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Text;
 
 namespace AssignmentPrototype
 {
@@ -53,6 +55,11 @@ namespace AssignmentPrototype
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            // Set email body content
+            string totalPaid = PriceInTotal.Text;
+            string bodyText = "Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + totalPaid + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
+                + Environment.NewLine + "If you did not make this purchase kindly contact us at pika6084@gmail.com";
+
             using (DataContextDataContext objDataContext = new DataContextDataContext())
             {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
@@ -91,7 +98,7 @@ namespace AssignmentPrototype
                 // Clear Payment Table
                 DataContextDataContext db2 = new DataContextDataContext();
                 var clearShoppingCartTable = from p in db2.ShoppingCarts
-                                             where p.customerEmail == (string)Session["user"]
+                                             where p.customerEmail == (string) Session["user"]
                                              select p;
 
                 if (clearShoppingCartTable != null)
@@ -100,6 +107,23 @@ namespace AssignmentPrototype
                     db2.SubmitChanges();
                 }
 
+                // Send email to the customer
+                //SmtpClient client = new SmtpClient();
+                //client.Port = 587;
+                //client.Host = "smtp.gmail.com";
+                //client.EnableSsl = true;
+                //client.Timeout = 10000;
+                //client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                //client.UseDefaultCredentials = false;
+                //client.Credentials = new System.Net.NetworkCredential("pika6084@gmail.com", "pikachu@6048");
+
+                //MailMessage mm = new MailMessage("donotreply@domain.com", "angzw-wm17@student.tarc.edu.my", "Pika Art Gallery Payment Receipt", bodyText);
+                //mm.BodyEncoding = UTF8Encoding.UTF8;
+                //mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+                //client.Send(mm);
+
+                // Display Payment made
                 Response.Write("<script>alert('Your order has succesfully made!')</script>");
                 HtmlMeta oScript = new HtmlMeta();
                 oScript.Attributes.Add("http-equiv", "REFRESH");

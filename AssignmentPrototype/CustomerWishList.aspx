@@ -53,7 +53,10 @@
                     <td style="width:200px;">
                         <h6>Drawn By: <asp:Label ID="Label1" runat="server" Text='<%# Eval("authorName") %>' /></h6>
                         <center>
+                            <a title="Click To View More" alt="Click To View More"
+                                 href="<%# ResolveUrl(String.Format("~/ProductDetail.aspx?id={0}", Eval("productID"))) %>">
                             <asp:Image ID="Image1" Style="max-height: 100px; max-width: 100px; height: auto; width: auto;" runat="server" class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("artImage")).ToArray()) %>' Height="50px" Width="50px" />
+                                </a>
                         </center>
                     </td>
                     <td style="width:300px;">
@@ -65,7 +68,7 @@
                         <br /><br />
                         <asp:ImageButton ID="removeFromCart" CssClass="removeFromCart" ImageUrl="/pic/garbage.png" CommandName="removeFromWishList" CommandArgument='<%# Eval("wishListID") %>' runat="server"></asp:ImageButton>
                     </td>
-                    <td style="width:300px;">RM<asp:Label ID="unitPrice" runat="server" Text='<%# Eval("unitPrice") %>' />
+                    <td style="width:300px;">RM <asp:Label ID="unitPrice" runat="server" Text='<%# Eval("unitPrice") %>' />
                     </td>
                     <td>
                         <%--Add to shopping cart button here--%>
