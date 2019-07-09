@@ -26,6 +26,10 @@
         .clear {
             clear: both;
         }
+
+        body {
+            background-color: #f2f2f2;
+        }
     </style>
 </asp:Content>
 

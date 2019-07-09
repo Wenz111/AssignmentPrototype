@@ -121,7 +121,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
     <br />
-
+        <asp:Button ID="btnLogout" runat="server" Text="Logout" style="position:absolute; margin-left:850px;" OnClick="btnLogout_Click" />
     <table class="auto-style23">
         <tr>
             <td class="auto-style21">Name:</td>

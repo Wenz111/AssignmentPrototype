@@ -16,12 +16,16 @@
         .auto-style1 {
             text-align: center;
         }
+
+        h1 {
+            padding: 0px;
+            margin: 0px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
-    <p class="w3-center">
-        &nbsp;
-    </p>
+    <h1>Purchase History</h1>
+    <br />
     <p class="auto-style1">
         <center>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Height="208px" Width="712px" DataSourceID="LinqDataSource1" BackColor="LightGoldenrodYellow" BorderColor="Tan" BorderWidth="1px" CellPadding="2" ForeColor="Black" GridLines="None">

@@ -41,14 +41,10 @@
             height: 29px;
         }
         .auto-style15 {
-            width: 430px;
-            text-align: right;
+            text-align: center;
             height: 200px;
         }
-        .auto-style16 {
-            height: 200px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -56,9 +52,7 @@
         <div class="auto-style12" style="background-image: url('pic/Coffee-Shop-Blur-Background-Wi.jpg'); background-position: center bottom; background-repeat: no-repeat;">
         <table class="auto-style1">
             <tr>
-                <td class="auto-style15"></td>
-                <td class="auto-style16">
-                </td>
+                <td class="auto-style15" colspan="2"><h3>Dear Customer, Welcome To the Art Gallery!</h3></td>
             </tr>
             <tr>
                 <td class="auto-style6">Email:</td>
@@ -76,6 +70,11 @@
                 <td class="auto-style14" colspan="2">
                     <br />
                     <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Login" />
+                &nbsp;<br />
+                    <br />
+                    <br />
+                    New user?
+                    <asp:Button ID="btnSignUp" runat="server" OnClick="btnSignUp_Click" Text="Sign Up" />
                 </td>
             </tr>
             </table>

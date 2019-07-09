@@ -83,6 +83,7 @@
     <Content Include="CustomerShoppingCart.aspx" />
     <Content Include="CustomerSignUp.aspx" />
     <Content Include="CustomerWishList.aspx" />
+    <Content Include="MainPage.aspx" />
     <Content Include="ProductDetail.aspx" />
     <Content Include="PurchaseHistory.aspx" />
     <Content Include="SellerActivity.aspx" />
@@ -149,6 +150,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataContext.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.aspx.cs">
+      <DependentUpon>MainPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MainPage.aspx.designer.cs">
+      <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProductDetail.aspx.cs">
       <DependentUpon>ProductDetail.aspx</DependentUpon>

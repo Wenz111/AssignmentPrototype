@@ -10,7 +10,7 @@
 namespace AssignmentPrototype {
     
     
-    public partial class CustomerLogin {
+    public partial class MainPage {
         
         /// <summary>
         /// form1 control.
@@ -22,39 +22,21 @@ namespace AssignmentPrototype {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// cusLogin control.
+        /// loginSellerBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cusLogin;
+        protected global::System.Web.UI.WebControls.Button loginSellerBtn;
         
         /// <summary>
-        /// cusPswd control.
+        /// loginCustomerBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox cusPswd;
-        
-        /// <summary>
-        /// btnLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
-        
-        /// <summary>
-        /// btnSignUp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSignUp;
+        protected global::System.Web.UI.WebControls.Button loginCustomerBtn;
     }
 }
