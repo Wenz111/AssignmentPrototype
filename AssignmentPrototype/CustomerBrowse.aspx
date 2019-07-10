@@ -93,7 +93,10 @@
                     <br />
                    <%-- <asp:Image ID="Image1" runat="server" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String((byte[])Eval("artImage")) %>' Style="max-height: 100%; max-width: 100%;" class="w3-hover-opacity" />--%>
                     <center>
-                     <asp:Image ID="Image1" Style="max-height: 230px; max-width: 230px; height: auto; width: auto;" runat="server" class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("artImage")).ToArray()) %>' />
+                        <a title="Click To View More" alt="Click To View More"
+                                 href="<%# ResolveUrl(String.Format("~/ProductDetail.aspx?id={0}", Eval("productID"))) %>">
+                     <asp:Image ID="Image1" Style="height: 250px; width: 250px;" runat="server" class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("artImage")).ToArray()) %>' />
+                        </a>
                     </center>
                     <p>
                         <b>

@@ -107,7 +107,7 @@ namespace AssignmentPrototype
                     db2.SubmitChanges();
                 }
 
-                // Send email to the customer
+                // Send email to the customer (Part 2) + use string builder to customize email's body content
                 //SmtpClient client = new SmtpClient();
                 //client.Port = 587;
                 //client.Host = "smtp.gmail.com";

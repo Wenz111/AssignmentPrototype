@@ -51,6 +51,17 @@ namespace AssignmentPrototype
                 DataContextDataContext db = new DataContextDataContext();
                 ArtistUpload currentArtistUpload = db.ArtistUploads.Single(pId => pId.productID == int.Parse(prodID));
 
+                // Get updated image
+                FileUpload updateImage = (FileUpload) DataList1.Items[DataList1.EditItemIndex].FindControl("FileUpload1");
+                byte[] img = new byte[updateImage.PostedFile.ContentLength];
+                updateImage.PostedFile.InputStream.Read(img, 0, img.Length);
+
+                // If have update image then save into the database
+                if (img != null)
+                {
+                    currentArtistUpload.artImage = img;
+                }
+
                 TextBox txtTemp = DataList1.Items[e.Item.ItemIndex].FindControl("TextBox1") as TextBox;
                 if (txtTemp != null)
                     currentArtistUpload.productname = txtTemp.Text;

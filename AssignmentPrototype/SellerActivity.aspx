@@ -61,6 +61,61 @@
             height: 40px;
             background-color: #f2f2f2
         }
+
+        /* File Upload Design  */
+        .file-upload {
+            display: inline-block;
+            overflow: hidden;
+            position: relative;
+            left: 70px;
+            top: -20px;
+            text-align: center;
+            vertical-align: middle;
+            /* Cosmetics */
+            border: 1px solid #5C005C;
+            background: #5C005C;
+            color: #fff;
+            /* browser can do it */
+            border-radius: 6px;
+            -moz-border-radius: 6px;
+            text-shadow: #000 1px 1px 2px;
+            -webkit-border-radius: 6px;
+        }
+
+        /* The button size */
+        .file-upload {
+            height: 1.3em;
+        }
+
+            .file-upload, .file-upload span {
+                width: 3.5em;
+            }
+
+                .file-upload input {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    margin: 0;
+                    font-size: 11px;
+                    /* Loses tab index in webkit if width is set to 0 */
+                    opacity: 0;
+                    filter: alpha(opacity=0);
+                }
+
+                .file-upload strong {
+                    font: normal 12px Tahoma,sans-serif;
+                    text-align: center;
+                    vertical-align: middle;
+                }
+
+                .file-upload span {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    display: inline-block;
+                    /* Adjust button text vertical alignment */
+                    padding-top: .15em;
+                } 
         
     </style>
 </asp:Content>
@@ -76,6 +131,12 @@
             <table style="width: 950px; margin: 0 auto;">
                 <tr>
                     <td style="width: 200px;">
+                        <div style="position: relative; top: 20px;">
+                            <label class="file-upload">
+                                <span><strong>Change</strong></span>
+                                <asp:FileUpload ID="FileUpload1" runat="server" Width="60px"></asp:FileUpload>
+                            </label>
+                        </div>
                         <center>
                             <asp:Image ID="Image1" Style="max-height: 100px; max-width: 100px; height: auto; width: auto;" runat="server" class="w3-hover-opacity" DataValue='<%#Eval("artImage") is DBNull ? null : Eval("artImage")%>' ImageUrl='<%# "data:image/jpg;base64," + Convert.ToBase64String(((System.Data.Linq.Binary)Eval("artImage")).ToArray()) %>' Height="50px" Width="50px" />
                         </center>
