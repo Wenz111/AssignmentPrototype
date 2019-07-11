@@ -56,9 +56,9 @@ namespace AssignmentPrototype
         protected void Button1_Click(object sender, EventArgs e)
         {
             // Set email body content
-            string totalPaid = PriceInTotal.Text;
-            string bodyText = "Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + totalPaid + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
-                + Environment.NewLine + "If you did not make this purchase kindly contact us at pika6084@gmail.com";
+            //string totalPaid = PriceInTotal.Text;
+            //string bodyText = "Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + totalPaid + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
+            //    + Environment.NewLine + "If you did not make this purchase kindly contact us at pika6084@gmail.com";
 
             using (DataContextDataContext objDataContext = new DataContextDataContext())
             {
@@ -86,19 +86,46 @@ namespace AssignmentPrototype
                                        where p.productID == o.productID
                                        select p;
 
+                // Add out of stock product to wish list
+                DataContextDataContext db3 = new DataContextDataContext();
+                WishList updateToWishList = new WishList();
+
                 if (deductProductQty != null)
                 {
                     foreach (var deductQty in deductProductQty)
                     {
-                        deductQty.quantity = deductQty.quantity - 1;
+                        if (deductQty.quantity > 0)
+                        {
+                            deductQty.quantity = deductQty.quantity - 1;
+                        }
+                        else
+                        {
+                            // Add the product with 0 quantity to the customer the wish list
+                            Response.Write("<script>alert('" + "This item " + deductQty.productname + " is currently out of stock and has been added to your wish list!" + "')</script>");
+                            updateToWishList.productID = deductQty.productID;
+                            updateToWishList.quantity = 1;
+                            updateToWishList.unitPrice = deductQty.productPrice;
+                            updateToWishList.customerEmail = (string)Session["user"];
+                            db3.WishLists.InsertOnSubmit(updateToWishList);
+                            db3.SubmitChanges();
+
+                            // Clear Shopping Cart for out of stock item
+                            DataContextDataContext db4 = new DataContextDataContext();
+                            var clearOutOfStockCart = from p in db4.ShoppingCarts
+                                                      where p.customerEmail == (string)Session["user"] && p.productID == deductQty.productID
+                                                      select p;
+
+                            db4.ShoppingCarts.DeleteAllOnSubmit(clearOutOfStockCart.ToList());
+                            db4.SubmitChanges();
+                        }
                     }
                     db1.SubmitChanges();
                 }
 
-                // Clear Payment Table
+                // Clear Shopping Cart
                 DataContextDataContext db2 = new DataContextDataContext();
                 var clearShoppingCartTable = from p in db2.ShoppingCarts
-                                             where p.customerEmail == (string) Session["user"]
+                                             where p.customerEmail == (string)Session["user"]
                                              select p;
 
                 if (clearShoppingCartTable != null)
@@ -107,7 +134,14 @@ namespace AssignmentPrototype
                     db2.SubmitChanges();
                 }
 
-                // Send email to the customer (Part 2) + use string builder to customize email's body content
+                // Display Payment made
+                Response.Write("<script>alert('Your order has succesfully made!')</script>");
+                HtmlMeta oScript = new HtmlMeta();
+                oScript.Attributes.Add("http-equiv", "REFRESH");
+                oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
+                Page.Header.Controls.Add(oScript);
+
+                // Send email to the customer (Part 2 extension) + use string builder to customize email's body content
                 //SmtpClient client = new SmtpClient();
                 //client.Port = 587;
                 //client.Host = "smtp.gmail.com";
@@ -122,13 +156,6 @@ namespace AssignmentPrototype
                 //mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 
                 //client.Send(mm);
-
-                // Display Payment made
-                Response.Write("<script>alert('Your order has succesfully made!')</script>");
-                HtmlMeta oScript = new HtmlMeta();
-                oScript.Attributes.Add("http-equiv", "REFRESH");
-                oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
-                Page.Header.Controls.Add(oScript);
             }
         }
     }

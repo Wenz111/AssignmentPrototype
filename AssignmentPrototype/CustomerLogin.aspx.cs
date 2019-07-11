@@ -51,7 +51,7 @@ namespace AssignmentPrototype
 
         protected void btnSignUp_Click(object sender, EventArgs e)
         {
-            Response.Redirect("CustomerSignUp.apsx");
+            Response.Redirect("~/CustomerSignUp.aspx");
         }
     }
 }

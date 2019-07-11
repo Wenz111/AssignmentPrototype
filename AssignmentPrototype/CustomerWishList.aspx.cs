@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace AssignmentPrototype
@@ -56,26 +57,48 @@ namespace AssignmentPrototype
                 DataContextDataContext db1 = new DataContextDataContext();
                 ArtistUpload objArtistUpload = db1.ArtistUploads.Single(proID => proID.productID == prodID);
 
-                // Add this product to shopping cart
-                DataContextDataContext db2 = new DataContextDataContext();
-                ShoppingCart newShoppingCart = new ShoppingCart();
-                newShoppingCart.productID = prodID;
-                newShoppingCart.productName = objArtistUpload.productname;
-                newShoppingCart.quantity = 1;
-                newShoppingCart.unitPrice = objArtistUpload.productPrice;
-                newShoppingCart.customerEmail = (string) Session["user"];
-                db2.ShoppingCarts.InsertOnSubmit(newShoppingCart);
-                db2.SubmitChanges();
 
-                // Delete this product from wish list
-                DataContextDataContext db3 = new DataContextDataContext();
-                WishList deleteWishList = new WishList();
-                var query = db3.WishLists.Where(wList => wList.productID == prodID).FirstOrDefault();
-                db3.WishLists.DeleteOnSubmit(query);
-                db3.SubmitChanges();
+                //Validation if current quantity = 0, don't allow user to add to cart
+                // Get Product quantity from seller and deduct it to see if it is 0
+                DataContextDataContext dba = new DataContextDataContext();
+                var deductProductQty = from p in dba.ArtistUploads
+                                       join o in dba.WishLists on p.productID equals o.productID
+                                       where p.productID == o.productID && p.productID == prodID
+                                       select p;
 
-                // Send user back to this page
-                Response.Redirect("CustomerWishList.aspx");
+                if (deductProductQty != null)
+                {
+                    foreach (var deductQty in deductProductQty)
+                    {
+                        if (deductQty.quantity >= 1)
+                        {
+                            // Add this product to shopping cart
+                            DataContextDataContext db2 = new DataContextDataContext();
+                            ShoppingCart newShoppingCart = new ShoppingCart();
+                            newShoppingCart.productID = prodID;
+                            newShoppingCart.productName = objArtistUpload.productname;
+                            newShoppingCart.quantity = 1;
+                            newShoppingCart.unitPrice = objArtistUpload.productPrice;
+                            newShoppingCart.customerEmail = (string)Session["user"];
+                            db2.ShoppingCarts.InsertOnSubmit(newShoppingCart);
+                            db2.SubmitChanges();
+
+                            // Delete this product from wish list
+                            DataContextDataContext db3 = new DataContextDataContext();
+                            WishList deleteWishList = new WishList();
+                            var query = db3.WishLists.Where(wList => wList.productID == prodID).FirstOrDefault();
+                            db3.WishLists.DeleteOnSubmit(query);
+                            db3.SubmitChanges();
+
+                            // Send user back to this page
+                            Response.Redirect("CustomerWishList.aspx");
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('" + "This item " + deductQty.productname + " is currently out of stock, please email the seller for more inquiry!" + "')</script>");
+                        }
+                    }
+                }
             }
 
             if (e.CommandName == "removeFromWishList")

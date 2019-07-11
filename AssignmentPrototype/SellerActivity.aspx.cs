@@ -57,7 +57,7 @@ namespace AssignmentPrototype
                 updateImage.PostedFile.InputStream.Read(img, 0, img.Length);
 
                 // If have update image then save into the database
-                if (img != null)
+                if (updateImage.HasFile)
                 {
                     currentArtistUpload.artImage = img;
                 }
