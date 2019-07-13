@@ -179,6 +179,29 @@
                 background-color: #ec8a44;
                 border-radius: 5px 5px 5px 5px;
             }
+
+            .logoutBtnStyle {
+                position: relative;
+                top: 5px;
+                left: 880px;
+            }
+
+            .welcomeStyle {
+                position: absolute;
+                top: 55px;
+            }
+
+            .loginBtnStyle {
+                position: relative;
+                top: 5px;
+                left: 810px;
+            }
+
+            .signUpBtnStyle {
+                position: absolute;
+                top: 49px;
+                left: 930px;
+            }
     </style>
 </head>
 <body>
@@ -195,6 +218,25 @@
            <li class='last active6'><a href='CustomerContactUs.aspx'><span>Contact Us</span></a></li>
         </ul>
         </div>
+
+            <div class="clear"></div>
+
+            <div class="loginBtnStyle">
+                <asp:Button ID="loginBtnMain" Visible="false" runat="server" Text="Login" OnClick="loginBtnMain_Click" />
+            </div>
+            <div class="signUpBtnStyle">
+                <asp:Button ID="signUpBtnMain" Visible="false"  runat="server" Text="Sign Up" OnClick="signUpBtnMain_Click" />
+            </div>
+            <div class="logoutBtnStyle">
+                <asp:Button ID="logoutBtnMain" Visible="false" runat="server" Text="Logout" OnClick="logoutBtnMain_Click" />
+            </div>
+            <div class="welcomeStyle">
+                <asp:Label ID="lblWelcomeMsg" Visible="false" runat="server" Text="Label"></asp:Label>
+            </div>
+
+            <div class="clear"></div>
+            <hr style="border-top: 1px solid #ff5722" />
+            <div class="clear"></div>
 
         <div class="clear"></div>
 

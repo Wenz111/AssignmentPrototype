@@ -67,12 +67,5 @@ namespace AssignmentPrototype
                 objDataContext.SubmitChanges();
             }
         }
-
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Remove("user");
-            Session.RemoveAll(); //Removes all session variables
-            Response.Redirect("MainPage.aspx");
-        }
     }
 }
