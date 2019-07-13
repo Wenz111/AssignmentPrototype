@@ -198,9 +198,10 @@
             }
 
             .signUpBtnStyle {
-                position: absolute;
-                top: 49px;
-                left: 930px;
+                position: relative;
+                top: -17px;
+                margin-bottom: -20px;
+                left: 92%;
             }
     </style>
 </head>
@@ -224,7 +225,7 @@
             <div class="loginBtnStyle">
                 <asp:Button ID="loginBtnMain" Visible="false" runat="server" Text="Login" OnClick="loginBtnMain_Click" />
             </div>
-            <div class="signUpBtnStyle">
+            <div class="reset-this signUpBtnStyle">
                 <asp:Button ID="signUpBtnMain" Visible="false"  runat="server" Text="Sign Up" OnClick="signUpBtnMain_Click" />
             </div>
             <div class="logoutBtnStyle">

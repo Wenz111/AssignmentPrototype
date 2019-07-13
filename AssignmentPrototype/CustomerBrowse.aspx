@@ -45,6 +45,35 @@
             top: 9px;
             left: -100px;
         }
+
+        input[type="submit" i] {
+            -webkit-appearance: push-button;
+            top: 5px;
+            user-select: none;
+            white-space: pre;
+            align-items: flex-start;
+            text-align: center;
+            cursor: default;
+            color: buttontext;
+            background-color: buttonface;
+            box-sizing: border-box;
+            padding: 1px 6px;
+            border-width: 2px;
+            border-style: outset;
+            border-color: buttonface;
+            border-image: initial;
+            -webkit-writing-mode: horizontal-tb !important;
+            text-rendering: auto;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            -webkit-rtl-ordering: logical;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+        }
     </style>
 </asp:Content>
 
