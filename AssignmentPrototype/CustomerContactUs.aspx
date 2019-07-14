@@ -11,6 +11,10 @@
         #cssmenu ul li.active6 a:before {
         width: 100%;
         }
+
+        body {
+            background-color: #f2f2f2;
+        }
     </style>
 </asp:Content>
 

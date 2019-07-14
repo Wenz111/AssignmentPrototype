@@ -182,13 +182,14 @@
 
             .logoutBtnStyle {
                 position: relative;
-                top: 5px;
+                top: 23px;
                 left: 880px;
+                z-index:10;
             }
 
             .welcomeStyle {
-                position: absolute;
-                top: 55px;
+                position: relative;
+                top: 3px;
             }
 
             .loginBtnStyle {
@@ -199,7 +200,7 @@
 
             .signUpBtnStyle {
                 position: relative;
-                top: -17px;
+                top: -16px;
                 margin-bottom: -20px;
                 left: 92%;
             }
@@ -225,13 +226,13 @@
             <div class="loginBtnStyle">
                 <asp:Button ID="loginBtnMain" Visible="false" runat="server" Text="Login" OnClick="loginBtnMain_Click" />
             </div>
-            <div class="reset-this signUpBtnStyle">
+            <div id="signUpBtn1" class="signUpBtnStyle">
                 <asp:Button ID="signUpBtnMain" Visible="false"  runat="server" Text="Sign Up" OnClick="signUpBtnMain_Click" />
             </div>
-            <div class="logoutBtnStyle">
+            <div id="logoutBtn1" class="logoutBtnStyle">
                 <asp:Button ID="logoutBtnMain" Visible="false" runat="server" Text="Logout" OnClick="logoutBtnMain_Click" />
             </div>
-            <div class="welcomeStyle">
+            <div id="welcomeStyle1" class="welcomeStyle">
                 <asp:Label ID="lblWelcomeMsg" Visible="false" runat="server" Text="Label"></asp:Label>
             </div>
 
