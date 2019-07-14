@@ -1,85 +1,166 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SellerLogin.aspx.cs" Inherits="AssignmentPrototype.SellerLogin" %>
 
-
-<!DOCTYPE html>
-
+<!DOCTYPE html
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>
-        Seller Login Form
-    </title>
-    <style type="text/css">
-        .wrapper {
-            width: 950px;
-            margin: auto;
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #ff751a;
         }
-        .auto-style1 {
+
+        input[type=text], input[type=password] {
             width: 100%;
-            border-style: none;
-            border-width: 0px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
         }
-        .auto-style5 {
-            width: 430px;
-            text-align: right;
-            height: 29px;
+
+        .btn {
+            background-color: #ff751a;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
         }
-        .auto-style6 {
-            width: 430px;
-            text-align: right;
-            height: 26px;
+
+        button:hover {
+            opacity: 0.8;
         }
-        .auto-style7 {
-            height: 26px;
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #ff5656;
         }
-        .auto-style11 {
-            height: 29px;
-        }
-        .auto-style12 {
-            height: 780px;
-        }
-        .auto-style14 {
+
+        .imgcontainer {
             text-align: center;
-            height: 29px;
+            margin: 24px 0 12px 0;
+            position: relative;
         }
-        .auto-style15 {
-            text-align: center;
-            height: 200px;
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
         }
-        </style>
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+        }
+
+        .modal, .modal2 {
+            display: block;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: red;
+                cursor: pointer;
+            }
+
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div class="wrapper">
-        <div class="auto-style12" style="background-image: url('pic/Coffee-Shop-Blur-Background-Wi.jpg'); background-position: center bottom; background-repeat: no-repeat;">
-        <table class="auto-style1">
-            <tr>
-                <td class="auto-style15" colspan="2"><h3>Dear Seller, Welcome To The Art Gallery!</h3></td>
-            </tr>
-            <tr>
-                <td class="auto-style6">Email:</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="selLogin" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style5">Password:</td>
-                <td class="auto-style11">
-                    <asp:TextBox ID="selPswd" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style14" colspan="2">
-                    <br />
-                    <asp:Button ID="btnLogin" runat="server" OnClick="btnLogin_Click" Text="Login" />
-                    <br />
-                    <br />
-                    <br />
-                    New user? <asp:Button ID="btnSignUp" runat="server" OnClick="btnSignUp_Click" Text="Sign Up" />
-                </td>
-            </tr>
-            </table>
-        </div>
+
+    <div id="id01" class="modal">
+
+        <form class="modal-content animate" runat="server">
+
+            <center><h3>Dear Seller, Welcome To The Pika Art Gallery!</h3></center>
+
+            <div class="imgcontainer">
+                <asp:Image ID="Image1" ImageUrl="pic/Artist.png" runat="server" Style="width: 40%; border-radius: 50%;" />
             </div>
-    </form>
+
+            <div class="container">
+
+                <label for="uname"><b>Email</b></label>
+
+                <asp:TextBox ID="selLogin" runat="server" placeholder="Enter Your Email" name="uname"></asp:TextBox>
+                <label for="psw"><b>Password</b></label>
+
+                <asp:TextBox ID="selPswd" runat="server" type="password" placeholder="Enter Your Password" name="psw"></asp:TextBox>
+                <asp:Button ID="artiesbtn" runat="server" Text="Login" OnClick="btnLogin_Click" CssClass="btn" />
+            </div>
+
+            <div class="container" style="background-color: #f1f1f1">
+                <span class="psw"><a href="SellerSignUp.aspx">New User?</a></span>
+                <br />
+            </div>
+        </form>
+    </div>
 </body>
 </html>

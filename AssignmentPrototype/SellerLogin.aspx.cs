@@ -48,10 +48,5 @@ namespace AssignmentPrototype
                 Response.Write("<script language='javascript'>window.alert('Your Username or Password is Invalid!')</script>");
             }
         }
-
-        protected void btnSignUp_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("SellerSignUp.aspx");
-        }
     }
 }

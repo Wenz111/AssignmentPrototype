@@ -56,8 +56,8 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:Button ID="loginCustomerBtn" runat="server" Text="Login as a Buyer" OnClick="loginCustomerBtn_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Button ID="loginCustomerBtn" runat="server" Text="Login as a Customer" OnClick="loginCustomerBtn_Click" />
 
                     </td>
                 </tr>

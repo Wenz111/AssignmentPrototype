@@ -56,7 +56,7 @@ namespace AssignmentPrototype
         {
             Session.Remove("user");
             Session.RemoveAll(); //Removes all session variables
-            Response.Redirect("CustomerBrowse.aspx");
+            Response.Redirect("MainPage.aspx");
         }
     }
 }

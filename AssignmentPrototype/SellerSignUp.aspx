@@ -43,15 +43,11 @@
         }
 
         .auto-style15 {
-            width: 408px;
             text-align: right;
             height: 123px;
         }
 
-        .auto-style16 {
-            height: 123px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -59,8 +55,7 @@
             <div class="auto-style14" style="background-image: url('pic/Coffee-Shop-Blur-Background-Wi.jpg'); background-position: center bottom; background-repeat: no-repeat;">
                 <table class="auto-style1">
                     <tr>
-                        <td class="auto-style15"></td>
-                        <td class="auto-style16"></td>
+                        <td class="auto-style15" colspan="2"><center><h1>Dear Seller, Welcome To The Pika Art Gallery!</h1></center></td>
                     </tr>
                     <tr>
                         <td class="auto-style11">Username:</td>
@@ -119,7 +114,7 @@
                     <tr>
                         <td class="auto-style12">House Address:</td>
                         <td>
-                            <asp:TextBox ID="selHouseAddress" runat="server" BorderWidth="1px" Width="190px"></asp:TextBox>
+                            <asp:TextBox ID="selHouseAddress" runat="server" TextMode="MultiLine" BorderWidth="1px" Width="190px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
