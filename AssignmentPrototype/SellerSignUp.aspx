@@ -7,6 +7,11 @@
     <title>
         Seller Sign Up Form
     </title>
+
+    <link rel="stylesheet" href="./mdl/material.min.css" />
+    <script src="./mdl/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
     <style type="text/css">
         .wrapper {
             width: 950px;
@@ -51,6 +56,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+
         <div class="wrapper">
             <div class="auto-style14" style="background-image: url('pic/Coffee-Shop-Blur-Background-Wi.jpg'); background-position: center bottom; background-repeat: no-repeat;">
                 <table class="auto-style1">

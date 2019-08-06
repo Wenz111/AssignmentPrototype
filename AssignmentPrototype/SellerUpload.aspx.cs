@@ -37,10 +37,19 @@ namespace AssignmentPrototype
 
                 newArtistUpload.productname = Request.Form["artname"];
                 newArtistUpload.productPrice = decimal.Parse(Request.Form["artprice"]);
+
+
+            if (FileUpload2.HasFile == false)
+            {
+                Response.Write("<script>alert('Please first select a file to upload...')</script>");
+            }
+            else
+            {
                 newArtistUpload.artImage = pic;
                 db.ArtistUploads.InsertOnSubmit(newArtistUpload);
                 db.SubmitChanges();
                 Response.Write("<script>alert('Upload successful')</script>");
+            }
         }
     }
 }

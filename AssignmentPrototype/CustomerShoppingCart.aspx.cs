@@ -18,6 +18,18 @@ namespace AssignmentPrototype
         double subTotal;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            calculateSum();
+            if (PriceInTotal.Text == "0")
+            {
+                Label1.Visible = true;
+            }
+            else if (PriceInTotal.Text != "0")
+            {
+                Label2.Visible = true;
+                PriceInTotal.Visible = true;
+                Button1.Visible = true;
+            }
             if (!IsPostBack)
             {
                 if (Session["user"] == null)
@@ -29,7 +41,7 @@ namespace AssignmentPrototype
                     using (DataContextDataContext objDataContext = new DataContextDataContext())
                     {
                         CustomerTable objCustomer = objDataContext.CustomerTables.Single(cus => cus.CustomerEmail == Session["user"]);
-                        calculateSum();
+
                     }
                 }
             }
@@ -37,8 +49,9 @@ namespace AssignmentPrototype
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            calculateSum();
             GridViewRow gr = GridView1.SelectedRow;
-            string id = gr.Cells[1].Text;
+            string id = gr.Cells[3].Text;
             Response.Redirect("ProductDetail.aspx?id=" + id);
         }
 
@@ -46,15 +59,24 @@ namespace AssignmentPrototype
         {
             foreach (GridViewRow gr in GridView1.Rows)
             {
-                subTotal = Convert.ToDouble(gr.Cells[3].Text) * Convert.ToDouble(gr.Cells[4].Text);
-                gr.Cells[5].Text = subTotal.ToString();
-                grandTotal = grandTotal + Convert.ToDouble(gr.Cells[5].Text);
+                TextBox tqnt = gr.Cells[4].FindControl("txtq") as TextBox;
+                // double quantity = Convert.ToInt32(gr.Cells[4].Text.ToString());
+                int quantity = Convert.ToInt32(tqnt.Text);
+
+                subTotal = Convert.ToDouble(quantity) * Convert.ToDouble(gr.Cells[6].Text);
+                gr.Cells[7].Text = subTotal.ToString();
+                grandTotal = grandTotal + Convert.ToDouble(gr.Cells[7].Text);
             }
             PriceInTotal.Text = grandTotal.ToString();
         }
 
+
+
+
         protected void Button1_Click(object sender, EventArgs e)
         {
+
+
             // Set email body content
             //string totalPaid = PriceInTotal.Text;
             //string bodyText = "Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + totalPaid + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
@@ -157,6 +179,50 @@ namespace AssignmentPrototype
 
                 //client.Send(mm);
             }
+        }
+
+
+
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            calculateSum();
+            TextBox tqnt = GridView1.Rows[e.RowIndex].Cells[1].FindControl("txtq") as TextBox;
+            string cartID = GridView1.DataKeys[e.RowIndex].Value.ToString();//foodid
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            conn.Open();
+
+            int newQty = Convert.ToInt32(tqnt.Text);
+
+            string updatePrice = "update ShoppingCart set Quantity ='" + newQty + "' where cartID ='" + cartID + "'";
+            SqlCommand cmd2 = new SqlCommand(updatePrice, conn); //Command is to let you to select in database
+            cmd2.Parameters.AddWithValue("@cartID", Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString()));
+            cmd2.ExecuteNonQuery();
+            GridView1.DataBind();
+            GridView1.Visible = true;
+
+            conn.Close();
+
+            Response.Redirect("CustomerShoppingCart.aspx");
+        }
+
+
+
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "Delete from [ShoppingCart] Where cartID =@id1";
+            cmd.Parameters.AddWithValue("@id1", Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value.ToString()));
+            cmd.Connection = conn;
+            cmd.ExecuteNonQuery();
+
+            Response.Redirect("CustomerShoppingCart.aspx");
         }
     }
 }
