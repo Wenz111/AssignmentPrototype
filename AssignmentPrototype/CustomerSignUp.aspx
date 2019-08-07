@@ -6,119 +6,167 @@
 <head runat="server">
     <title>Customer Sign Up page</title>
     <style type="text/css">
-        .wrapper {
-            width: 950px;
-            margin: auto;
+        body {
+            background-color: #5f92af;
+            margin-top: 50px;
+            font-family: "Mukta", sans-serif;
+            color: #a4d01e;
+            font-weight: 700;
         }
 
+        a:hover {
+            color: #fff;
+        }
+
+        input {
+            display: block;
+            height: 50px;
+            border: none;
+            margin-bottom: 10px;
+            font-size: 1.02rem;
+            border: 3px solid #555;
+            Width: 366px;
+        }
+
+        button {
+            font-family: "Mukta", sans-serif;
+            width: 300px;
+            color: #fff;
+            font-size: 1.025rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-weight: 700;
+            display: block;
+            height: 50px;
+            border: none;
+            margin-left: 100px;
+            font-size: 1.02rem;
+            border: 3px solid #555;
+            Width: 366px;
+            position: center;
+        }
+
+            button:hover {
+                opacity: 0.9;
+            }
+
+        #signup {
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #235b7b;
+            height: 1070px;
+            width: 600px;
+            box-shadow: 8px 8px 15px #888;
+            padding: 20px;
+        }
+
+        .container {
+            position: relative;
+            top: 40px;
+        }
+
+        .signup-text {
+            font-size: 1.375rem;
+            margin-bottom: 20px;
+            margin-left: 20px
+        }
+
+        .signup-btn {
+            background-color: #a1d613;
+            margin-top: 20px;
+        }
+
+        .or {
+            color: #adc8d8;
+            font-size: 1.4rem;
+        }
+
+        .has-account {
+            color: #5f92af;
+            font-weight: 400;
+        }
+
+        .label {
+            left: 50px;
+            text-align: left;
+            position: relative;
+        }
+
+
         .auto-style1 {
-            width: 100%;
-            border-style: none;
-            border-width: 0px;
+            font-size: 1.375rem;
+            margin-bottom: 20px;
+            height: 805px;
         }
-        .auto-style7 {
-            height: 26px;
+
+        .auto-style2 {
+            font-size: 1.375rem;
+            margin-bottom: 20px;
+            height: 18px;
         }
-        .auto-style8 {
-            text-align: center;
+
+        .auto-style3 {
+            font-size: 1.375rem;
+            margin-bottom: 20px;
+            height: 972px;
+            margin-top: 19px;
         }
-        .auto-style11 {
-            width: 408px;
-            text-align: right;
-            height: 26px;
+
+        .auto-style5 {
+            text-align: center
         }
-        .auto-style12 {
-            width: 408px;
-            text-align: right;
+
+        #textposition {
+            padding-left: 100px
         }
-        .auto-style14 {
-            height: 780px;
-        }
-        .auto-style15 {
-            text-align: right;
-            height: 123px;
-        }
-        </style>
+    </style>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div class="wrapper">
-        <div class="auto-style14" style="background-image: url('pic/Coffee-Shop-Blur-Background-Wi.jpg'); background-position: center bottom; background-repeat: no-repeat;">
-        <table class="auto-style1">
-            <tr>
-                <td class="auto-style15" colspan="2"><center><h1>Dear Customer, Welcome To The Pika Art Gallery!</h1></center></td>
-            </tr>
-            <tr>
-                <td class="auto-style11">Username:</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="cusUsername" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Password :</td>
-                <td>
-                    <asp:TextBox ID="cusPswd" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Confirm Password :</td>
-                <td>
-                    <asp:TextBox ID="cusConfirmPswd" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style11">Email:</td>
-                <td class="auto-style7">
-                    <asp:TextBox ID="cusEmail" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Confirm Email :</td>
-                <td>
-                    <asp:TextBox ID="cusConfirmEmail" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Name:</td>
-                <td>
-                    <asp:TextBox ID="cusName" runat="server" Width="190px" BorderWidth="1px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Gender :</td>
-                <td>
-                    <asp:TextBox ID="cusGender" runat="server" BorderWidth="1px" Width="190px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Phone Number:</td>
-                <td>
-                    <asp:TextBox ID="cusPhoneNum" runat="server" BorderWidth="1px" Width="190px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">Date of Birth:</td>
-                <td>
-                <input type="date" name="date" />
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style12">House Address:</td>
-                <td>
-                    <asp:TextBox ID="cusHouseAddress" runat="server" TextMode="MultiLine" BorderWidth="1px" Width="190px"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style8" colspan="2">
-                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [CustomerTable]"></asp:SqlDataSource>
-                    <br />
-                    <asp:Button ID="btnSignUp" runat="server" OnClick="btnSignUp_Click" Text="Sign Up" />
-                    <br />
-                </td>
-            </tr>
-            </table>
+
+
+    <div id="signup" class="auto-style1">
+        <div class="auto-style2">
+
+            <center><h1>Dear Customer, Welcome To The Pika Art Gallery!</h1></center>
+
+            <form id="form2" runat="server" class="auto-style3">
+
+                <div id="textposition">
+                    <asp:Label ID="Label1" runat="server" Text="User Name " Style="text-align: left" CssClass="auto-style6"></asp:Label>
+                    <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+
+                    <asp:Label ID="Label2" runat="server" Text="Password " Style="text-align: left" CssClass="auto-style5"></asp:Label>
+                    <asp:TextBox ID="cusPswd" runat="server"></asp:TextBox>
+
+                    <asp:Label ID="Label3" runat="server" Text="Confirm Password " Style="text-align: left" CssClass="auto-style7"></asp:Label>
+                    <asp:TextBox ID="cusConfirmPswd" runat="server"></asp:TextBox>
+
+                    <asp:Label ID="Label4" runat="server" Text="Email" Style="text-align: left" CssClass="auto-style8"></asp:Label>
+                    <asp:TextBox ID="cusEmail" runat="server"></asp:TextBox>
+
+                    <asp:Label ID="Label5" runat="server" Text="Your Name " Style="text-align: left" CssClass="auto-style9"></asp:Label>
+                    <asp:TextBox ID="cusName" runat="server"></asp:TextBox>
+
+                    <asp:Label ID="Label6" runat="server" Text="Date of Birth" Style="text-align: left" CssClass="auto-style10"></asp:Label>
+                    <input type="date" name="date" />
+
+                    <asp:Label ID="Label7" runat="server" Text="Gender" Style="text-align: left" CssClass="auto-style11"></asp:Label>
+                    <asp:TextBox ID="cusGender" runat="server"> </asp:TextBox>
+
+                    <asp:Label ID="Label8" runat="server" Text="Phone Number  " Style="text-align: left" CssClass="auto-style12"></asp:Label>
+                    <asp:TextBox ID="cusPhoneNum" runat="server"></asp:TextBox>
+
+                    <asp:Label ID="Label9" runat="server" Text="House Address" Style="text-align: left" CssClass="auto-style13"></asp:Label>
+                    <asp:TextBox ID="cusHouseAddress" runat="server"></asp:TextBox>
+
+                    <asp:Button ID="btnSignUp" runat="server" class="signup-btn" OnClick="btnSignUp_Click" Text="Sign Up" />
+                </div>
+
+                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [CustomerTable]"></asp:SqlDataSource>
+            </form>
+
         </div>
-            </div>
-    </form>
+    </div>
+
 </body>
 </html>
