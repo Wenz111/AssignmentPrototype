@@ -136,28 +136,49 @@
 
                 <div id="textposition">
                     <asp:Label ID="Label1" runat="server" Text="User Name " CssClass=" auto-style5 "></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="selUsername" ErrorMessage="User Name cannot be empty">*</asp:RequiredFieldValidator>
                     <asp:TextBox ID="selUsername" runat="server"></asp:TextBox>
+                    
                     <asp:Label ID="Label2" runat="server" Text="Password " Style="text-align: left" CssClass="auto-style5"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="selPswd" ErrorMessage="Password cannot be empty">*</asp:RequiredFieldValidator>
+                    <asp:TextBox ID="selPswd" TextMode="Password" runat="server"></asp:TextBox>
 
-                    <asp:TextBox ID="selPswd" runat="server"></asp:TextBox>
                     <asp:Label ID="Label3" runat="server" Text="Confirm Password " Style="text-align: left" CssClass="   auto-style5 "></asp:Label>
-                    <asp:TextBox ID="selConfirmPswd" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="selConfirmPswd" ErrorMessage="Confirm Password cannot be empty">*</asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToCompare="selPswd" ControlToValidate="selConfirmPswd" ErrorMessage="Password not match!">Password not match!</asp:CompareValidator>
+                    <asp:TextBox ID="selConfirmPswd" TextMode="Password" runat="server"></asp:TextBox>
+                    
                     <asp:Label ID="Label4" runat="server" Text="Email" Style="text-align: left" CssClass="auto-style5"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="selEmail" ErrorMessage="Email Cannot be empty">*</asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="selEmail" ErrorMessage="Email format is not valid" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
                     <asp:TextBox ID="selEmail" runat="server"></asp:TextBox>
+                    
                     <asp:Label ID="Label5" runat="server" Text="Your Name " Style="text-align: left" CssClass="auto-style5"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="selName" ErrorMessage="Your Name cannot be empty">*</asp:RequiredFieldValidator>
                     <asp:TextBox ID="selName" runat="server"></asp:TextBox>
+                    
                     <asp:Label ID="Label6" runat="server" Text="Date of Birth" Style="text-align: left" CssClass="auto-style5"></asp:Label>
-                    <input type="date" name="date" />
+                    <input id="dateOfBirth" type="date" name="date" value="1999-12-31" min="1919-01-01" max="2019-08-14" />
+                    
                     <asp:Label ID="Label7" runat="server" Text="Gender" Style="text-align: left" CssClass="auto-style5"></asp:Label>
-
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="selGender" ErrorMessage="Your gender cannot be empty">*</asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="selGender" ValidationExpression="^Male$|^Female$" ErrorMessage="Gender should either be 'Male' or 'Female'">*</asp:RegularExpressionValidator>
                     <asp:TextBox ID="selGender" runat="server"> </asp:TextBox>
+                    
                     <asp:Label ID="Label8" runat="server" Text="Phone Number  " Style="text-align: left" CssClass="auto-style12"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="selPhoneNum" ErrorMessage="Phone Number cannot be empty">*</asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="selPhoneNum" runat="server" ValidationExpression="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" ErrorMessage="Phone number should be in this format XXX-XXXXXXX">*</asp:RegularExpressionValidator>
                     <asp:TextBox ID="selPhoneNum" runat="server"></asp:TextBox>
+                    
                     <asp:Label ID="Label9" runat="server" Text="House Address" Style="text-align: left" CssClass="auto-style13"></asp:Label>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="selHouseAddress" ErrorMessage="House Address is Required">*</asp:RequiredFieldValidator>
                     <asp:TextBox ID="selHouseAddress" runat="server"></asp:TextBox>
 
                     <asp:Button ID="btnSignUp" class="signup-btn" runat="server" OnClick="btnSignUp_Click" Text="Sign Up" />
-                    <br />
+
+                    <div style="position: relative; top: 40px; left: -100px;">
+                    <asp:ValidationSummary ID="ValidationSummary1" ForeColor="#333300" runat="server" HeaderText="The following problems have been encountered" />
+                    </div>
                 </div>
 
                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [CustomerTable]"></asp:SqlDataSource>

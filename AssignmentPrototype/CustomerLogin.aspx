@@ -83,7 +83,6 @@
             margin: 5% auto 15% auto;
             border: 1px solid #888;
             width: 80%;
-            /
         }
 
 
@@ -154,10 +153,15 @@
 
             <div class="container">
 
-                <label for="uname"><b>Email</b></label>
+                <label for="uname"><b>Email
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="cusLogin" ErrorMessage="Email Cannot Be Empty"></asp:RequiredFieldValidator>
+                </b></label>
 
                 <asp:TextBox ID="cusLogin" runat="server" placeholder="Enter Your Email"></asp:TextBox>
-                <label for="psw"><b>Password</b></label>
+
+                <label for="psw"><b>Password
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="cusPswd" ErrorMessage="Password Cannot Be Empty"></asp:RequiredFieldValidator>
+                </b></label>
 
                 <asp:TextBox ID="cusPswd" runat="server" type="password" placeholder="Enter Your Password"></asp:TextBox>
                 <asp:Button ID="customerLoginBtn" runat="server" Text="Login" OnClick="btnLogin_Click" CssClass="btn" />

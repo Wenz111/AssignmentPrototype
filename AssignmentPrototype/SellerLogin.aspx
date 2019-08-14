@@ -147,10 +147,14 @@
 
             <div class="container">
 
-                <label for="uname"><b>Email</b></label>
+                <label for="uname"><b>Email
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="selLogin" ErrorMessage="Email Cannot Be Empty!"></asp:RequiredFieldValidator>
+                </b></label>
 
                 <asp:TextBox ID="selLogin" runat="server" placeholder="Enter Your Email" name="uname"></asp:TextBox>
-                <label for="psw"><b>Password</b></label>
+                <label for="psw"><b>Password
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="selPswd" ErrorMessage="Password Cannot Be Empty!"></asp:RequiredFieldValidator>
+                </b></label>
 
                 <asp:TextBox ID="selPswd" runat="server" type="password" placeholder="Enter Your Password" name="psw"></asp:TextBox>
                 <asp:Button ID="artiesbtn" runat="server" Text="Login" OnClick="btnLogin_Click" CssClass="btn" />
