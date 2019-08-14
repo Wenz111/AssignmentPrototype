@@ -82,31 +82,27 @@ namespace AssignmentPrototype
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-
-
-            // Set email body content
-            //string totalPaid = PriceInTotal.Text;
-            //string bodyText = "Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + totalPaid + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
-            //    + Environment.NewLine + "If you did not make this purchase kindly contact us at pika6084@gmail.com";
-
             using (DataContextDataContext objDataContext = new DataContextDataContext())
             {
-                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
-                conn.Open();
-                CustomerTable objCustomer = objDataContext.CustomerTables.Single(cus => cus.CustomerEmail == Session["user"]);
 
-                SqlDataAdapter data = new SqlDataAdapter("select * from ProductDetail", conn);
+// ======================================== Payment Section ===================================================================
+                //    SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+                //    conn.Open();
+                //    CustomerTable objCustomer = objDataContext.CustomerTables.Single(cus => cus.CustomerEmail == Session["user"]);
 
-                string paymentType = "Online";
-                SqlCommand cmd = new SqlCommand("insert into Purchase(paymentDate,paymentAmount,paymentType,customerEmail)values(@paymentDate,@paymentAmount,@paymentType,@customerEmail)", conn);
+                //    SqlDataAdapter data = new SqlDataAdapter("select * from ProductDetail", conn);
 
-                cmd.Parameters.AddWithValue("@paymentDate", DateTime.Today);
-                cmd.Parameters.AddWithValue("@paymentAmount", decimal.Parse(PriceInTotal.Text));
-                cmd.Parameters.AddWithValue("@paymentType", paymentType.ToString());
-                cmd.Parameters.AddWithValue("@customerEmail", Session["user"]);
+                //    string paymentType = "Online";
+                //    SqlCommand cmd = new SqlCommand("insert into Purchase(paymentDate,paymentAmount,paymentType,customerEmail)values(@paymentDate,@paymentAmount,@paymentType,@customerEmail)", conn);
+
+                //    cmd.Parameters.AddWithValue("@paymentDate", DateTime.Today);
+                //    cmd.Parameters.AddWithValue("@paymentAmount", decimal.Parse(PriceInTotal.Text));
+                //    cmd.Parameters.AddWithValue("@paymentType", paymentType.ToString());
+                //    cmd.Parameters.AddWithValue("@customerEmail", Session["user"]);
 
 
-                cmd.ExecuteNonQuery();
+                //    cmd.ExecuteNonQuery();
+// ======================================== End Payment Section ===================================================================
 
                 // Get Product quantity from seller and deduct it
                 DataContextDataContext db1 = new DataContextDataContext();
@@ -244,43 +240,79 @@ namespace AssignmentPrototype
                         db1.SubmitChanges();
                     }
 
+                    // Make payment and store payment in Payment History Table
+                    // Store final payment into Purchase table
+                    DataContextDataContext dbInsertPurchase = new DataContextDataContext();
+                    Purchase newPurchase = new Purchase();
+                    newPurchase.PaymentDate = DateTime.Now;
+                    newPurchase.PaymentAmount = decimal.Parse(PriceInTotal.Text);
+                    newPurchase.PaymentType = "Online";
+                    newPurchase.customerEmail = (string) Session["user"];
+                    dbInsertPurchase.Purchases.InsertOnSubmit(newPurchase);
+                    dbInsertPurchase.SubmitChanges();
+
+                    // Display Payment made
+                    Response.Write("<script>alert('Your order has succesfully made!\\nAn Email regarding the purchase details has been send to your registered email address!')</script>");
+                    HtmlMeta oScript = new HtmlMeta();
+                    oScript.Attributes.Add("http-equiv", "REFRESH");
+                    oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
+                    Page.Header.Controls.Add(oScript);
+
                     // Clear Shopping Cart
                     DataContextDataContext db2 = new DataContextDataContext();
                     var clearShoppingCartTable = from p in db2.ShoppingCarts
                                                  where p.customerEmail == (string)Session["user"]
                                                  select p;
 
+                    // Before clear Shopping Cart
+                    // Send an email summary of the payment and total payment
+                    // Store the details in PurchaseHistory Table
+                    //Set email body content
+                    // Get customer name
+                    DataContextDataContext dbGetName = new DataContextDataContext();
+                    CustomerTable objCustomerName = dbGetName.CustomerTables.Single(cus => cus.CustomerEmail == Session["user"]);
+                    string cusName = objCustomerName.CustomerName;
+
+                    string bodyText = "Dear " + cusName + ", <br/>Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + decimal.Parse(PriceInTotal.Text) + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
+                                       + "If you did not make this purchase kindly contact us at pika6084@gmail.com.";
+                    bodyText += "<br/><br/>Below is a summary of your current purchase:";
+                    bodyText += "<table border=" + 1 + " cellpadding=" + 0 + " cellspacing=" + 0 + " width = " + 400 + "><tr bgcolor='#f5d442'><td><center><b>Product purchased</b></center></td><td><center><b>Quantity</b></center></td><td><center><b>Price (RM)</b></center></td></tr>";
+
+                    // for every item in shopping cart add to this email
+                    if (clearShoppingCartTable != null)
+                    {
+                        foreach (var addToEmail in clearShoppingCartTable)
+                        {
+                            bodyText += "<tr><td><center>" + addToEmail.productName + "</center></td><td><center>1</center></td><td><center>" + addToEmail.unitPrice + "</center></td></tr>";
+                        }
+                        bodyText += "<tr><td><center><b>Total</b></center></td><td></td><td><center><b>" + decimal.Parse(PriceInTotal.Text) + "</b></center></td>";
+                        bodyText += "</table>";
+                    }
+
+                    // Send email to the customer (Part 2 extension) + use string builder to customize email's body content
+                    SmtpClient client = new SmtpClient();
+                    client.Port = 587;
+                    client.Host = "smtp.gmail.com";
+                    client.EnableSsl = true;
+                    client.Timeout = 10000;
+                    client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    client.UseDefaultCredentials = false;
+                    client.Credentials = new System.Net.NetworkCredential("pika6084@gmail.com", "pikachu@6084");
+
+                    MailMessage mm = new MailMessage("donotreply@domain.com", "angzw-wm17@student.tarc.edu.my", "Pika Art Gallery Payment Receipt", bodyText);
+                    mm.IsBodyHtml = true;
+                    mm.BodyEncoding = UTF8Encoding.UTF8;
+                    mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
+
+                    client.Send(mm);
+
+                    // Clear Shopping Cart
                     if (clearShoppingCartTable != null)
                     {
                         db2.ShoppingCarts.DeleteAllOnSubmit(clearShoppingCartTable.ToList());
                         db2.SubmitChanges();
-
-                        // Display Payment made
-                        Response.Write("<script>alert('Your order has succesfully made!')</script>");
-                        HtmlMeta oScript = new HtmlMeta();
-                        oScript.Attributes.Add("http-equiv", "REFRESH");
-                        oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
-                        Page.Header.Controls.Add(oScript);
                     }
                 }
-
-                
-
-                // Send email to the customer (Part 2 extension) + use string builder to customize email's body content
-                //SmtpClient client = new SmtpClient();
-                //client.Port = 587;
-                //client.Host = "smtp.gmail.com";
-                //client.EnableSsl = true;
-                //client.Timeout = 10000;
-                //client.DeliveryMethod = SmtpDeliveryMethod.Network;
-                //client.UseDefaultCredentials = false;
-                //client.Credentials = new System.Net.NetworkCredential("pika6084@gmail.com", "pikachu@6048");
-
-                //MailMessage mm = new MailMessage("donotreply@domain.com", "angzw-wm17@student.tarc.edu.my", "Pika Art Gallery Payment Receipt", bodyText);
-                //mm.BodyEncoding = UTF8Encoding.UTF8;
-                //mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
-
-                //client.Send(mm);
             }
         }
 
