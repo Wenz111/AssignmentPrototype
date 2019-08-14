@@ -77,19 +77,25 @@
             <div>
 
                 <label for="Artname">Art Name</label>
-                <input type="text" name="artname" placeholder="ART name..">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ArtName" ErrorMessage="Art Name cannot be empty">*</asp:RequiredFieldValidator>
+                <asp:TextBox ID="ArtName" placeholder="ART name.." runat="server"></asp:TextBox>
 
                 <label for="price">Price </label>
-                <input type="text" name="artprice" placeholder="ART price..">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="Price" runat="server" ErrorMessage="Art Price cannot be empty">*</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="Price" ValidationExpression="^\d+(\.\d{1,2})?$" ErrorMessage="Price cannot have more than 2 decimal place and no alphabets allow!">*</asp:RegularExpressionValidator>
+                <asp:TextBox ID="Price" runat="server" placeholder="ART price.."></asp:TextBox>
 
                 <label for="artyear">Year of creation</label>
-                <input type="date" name="date">
+                <input type="date" name="date" value="2019-08-19">
 
                 <label for="artquantity">Quantity</label>
-                <input type="number" name="artquantity">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="artquantity" ErrorMessage="Art Quantity cannot be empty">*</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="artquantity" ValidationExpression="^[1-9][0-9]?$|^100$" ErrorMessage="Art Quantity can only be between 1 to 100, no decimal points allow!">*</asp:RegularExpressionValidator>
+                <asp:TextBox ID="artquantity" TextMode="Number" runat="server"></asp:TextBox>
 
                 <label for="artdescrip">Description</label>
-                <input type="text" name="artdescrip" placeholder="Write some description here....">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="artdescrip" ErrorMessage="Art Description cannot be empty">*</asp:RequiredFieldValidator>
+                <asp:TextBox ID="artdescrip" runat="server" placeholder="Write some description here...."></asp:TextBox>
 
                 <label for="uploadImage">Upload Image</label>
                 <asp:FileUpload ID="FileUpload2" runat="server" />
@@ -97,6 +103,9 @@
 
                 <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="Button1_Click" />
 
+                <div style="position: absolute; top: 285px; left: -5px;">
+                    <asp:ValidationSummary ID="ValidationSummary1" ForeColor="#ff0000" runat="server" HeaderText="The following problems have been encountered" />
+                </div>
             </div>
         </div>
 

@@ -91,10 +91,28 @@ namespace AssignmentPrototype
 
         protected void DataList1_DeleteCommand(object source, DataListCommandEventArgs e)
         {
+            // Get product ID
             string prodID = "";
             Label tempProdID = DataList1.Items[e.Item.ItemIndex].FindControl("productId2") as Label;
-
             prodID = tempProdID.Text;
+
+            // Check if the product is in the Customer's "Wish List" and "Shopping Cart"
+            // If yes, delete those items, then only remove this from Seller Upload Table
+            DataContextDataContext dbRemoveWishList = new DataContextDataContext();
+            var checkInWishList = (from p in dbRemoveWishList.WishLists
+                                  where p.productID == int.Parse(prodID)
+                                  select p).ToList();
+
+            dbRemoveWishList.WishLists.DeleteAllOnSubmit(checkInWishList.ToList());
+            dbRemoveWishList.SubmitChanges();
+
+            DataContextDataContext dbRemoveCart = new DataContextDataContext();
+            var checkInShoppingCart = (from p in dbRemoveCart.ShoppingCarts
+                                       where p.productID == int.Parse(prodID)
+                                       select p).ToList();
+            dbRemoveCart.ShoppingCarts.DeleteAllOnSubmit(checkInShoppingCart.ToList());
+            dbRemoveCart.SubmitChanges();
+
 
             DataContextDataContext db = new DataContextDataContext();
             ArtistUpload currentArtistUpload = db.ArtistUploads.Single(pId => pId.productID == int.Parse(prodID));

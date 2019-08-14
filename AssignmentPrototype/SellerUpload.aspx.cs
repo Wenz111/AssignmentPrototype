@@ -32,18 +32,18 @@ namespace AssignmentPrototype
                 ArtistUpload newArtistUpload = new ArtistUpload();
 
                 newArtistUpload.authorEmail = (string) Session["seller"];
-                newArtistUpload.description = Request.Form["artdescrip"];
+                newArtistUpload.description = artdescrip.Text;
                 DateTime myDateTime = DateTime.ParseExact(Request.Form["date"], "yyyy-MM-dd", null);
                 newArtistUpload.date = myDateTime;
-                newArtistUpload.quantity = int.Parse(Request.Form["artquantity"]);
+                newArtistUpload.quantity = int.Parse(artquantity.Text);
 
-                newArtistUpload.productname = Request.Form["artname"];
-                newArtistUpload.productPrice = decimal.Parse(Request.Form["artprice"]);
+                newArtistUpload.productname = ArtName.Text;
+                newArtistUpload.productPrice = decimal.Parse(Price.Text);
 
 
             if (FileUpload2.HasFile == false)
             {
-                Response.Write("<script>alert('Please first select a file to upload...')</script>");
+                Response.Write("<script>alert('Please choose an art to upload to proceed with selling it...')</script>");
             }
             else
             {

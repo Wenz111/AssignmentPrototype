@@ -59,6 +59,7 @@ namespace AssignmentPrototype
                 // the product has already been added to your wishlist and return to their Customer Wish List
                 DataContextDataContext dbValidate1 = new DataContextDataContext();
                 var currentWishList = from p in dbValidate1.WishLists
+                                      where p.customerEmail == (string) Session["user"]
                                       select p;
 
                 db = new DataContextDataContext();
@@ -90,7 +91,7 @@ namespace AssignmentPrototype
                         newWishList.productID = int.Parse(lblProductID.Text);
                         newWishList.quantity = 1;
                         newWishList.unitPrice = decimal.Parse(lblPrice.Text);
-                        newWishList.customerEmail = (string)Session["user"];
+                        newWishList.customerEmail = (string) Session["user"];
                         db.WishLists.InsertOnSubmit(newWishList);
                         db.SubmitChanges();
                         Response.Write("<script>alert('The item has been added in to your wish list!')</script>");
@@ -142,6 +143,7 @@ namespace AssignmentPrototype
                             // the product has already been added to your shopping cart and return to their Customer Shopping Cart
                             DataContextDataContext dbValidate2 = new DataContextDataContext();
                             var currentShoppingCart = from p in dbValidate2.ShoppingCarts
+                                                      where p.customerEmail == (string) Session["user"]
                                                       select p;
 
 

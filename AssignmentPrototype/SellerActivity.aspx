@@ -153,12 +153,18 @@
                     </td>
                     <td style="width: 350px;">
                         <span class="fontStyle">Name: <h5><asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("productname") %>'></asp:TextBox></h5></span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="TextBox1" runat="server" ErrorMessage="Art Name cannot be empty">*</asp:RequiredFieldValidator>
                         <br />
                         <span class="fontStyle">Product Description: <h5><asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("description") %>'></asp:TextBox></h5></span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Art Description cannot be empty">*</asp:RequiredFieldValidator>
                         <br />
                         <span class="fontStyle">Quantity: <h4><asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("quantity") %>'></asp:TextBox></h4></span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox3" ErrorMessage="Art Quantity cannot be empty">*</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBox3" ValidationExpression="^[1-9][0-9]?$|^100$" ErrorMessage="Art Quantity can only be between 1 to 100, no decimal points allow!">*</asp:RegularExpressionValidator>
                     </td>
                     <td style="width: 200px;">RM </span><h4><asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("productPrice") %>' Width="70px"></asp:TextBox></h4></span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="TextBox4" runat="server" ErrorMessage="Art Price cannot be empty">*</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBox4" ValidationExpression="^\d+(\.\d{1,2})?$" ErrorMessage="Price cannot have more than 2 decimal place and no alphabets allow!">*</asp:RegularExpressionValidator>
                     </td>
                     <td>
                         <asp:ImageButton ID="UpdateButton" CommandName="Update" CssClass="updatedStyle" ImageUrl="/pic/updated.png" runat="server" Text="Update" />
@@ -194,7 +200,7 @@
                     <td>
                         <asp:ImageButton ID="EditButton" CssClass="editStyle" ImageUrl="/pic/edit.png" CommandName="Edit" runat="server" />
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <asp:ImageButton ID="DeleteButton" OnClientClick="return confirm('Are you sure you want to delete? This action is not recoverable!')" CssClass="deleteStyle" ImageUrl="/pic/delete.png" CommandName="Delete" runat="server" />
+                        <asp:ImageButton ID="DeleteButton" OnClientClick="return confirm('Are you sure you want to delete? This action is not recoverable! Doing so will also delete this products in Customer Wish List and Shopping Cart!')" CssClass="deleteStyle" ImageUrl="/pic/delete.png" CommandName="Delete" runat="server" />
                     </td>
                 </tr>
             </table>
@@ -205,6 +211,10 @@
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="footerContent" runat="server">
+    
+    <div style="position: relative; left: 350px;">
+        <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+    </div>
 
     <hr style="border-top: 1px solid #ff5722" />
     

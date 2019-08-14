@@ -72,26 +72,67 @@ namespace AssignmentPrototype
                     {
                         if (deductQty.quantity >= 1)
                         {
-                            // Add this product to shopping cart
-                            DataContextDataContext db2 = new DataContextDataContext();
-                            ShoppingCart newShoppingCart = new ShoppingCart();
-                            newShoppingCart.productID = prodID;
-                            newShoppingCart.productName = objArtistUpload.productname;
-                            newShoppingCart.quantity = 1;
-                            newShoppingCart.unitPrice = objArtistUpload.productPrice;
-                            newShoppingCart.customerEmail = (string)Session["user"];
-                            db2.ShoppingCarts.InsertOnSubmit(newShoppingCart);
-                            db2.SubmitChanges();
+                            // If the item has already been added to the Shopping Cart then 
+                            // Prompt the item has already been added to Shopping Cart
+                            // And remove the item from Wish List
+                            Boolean productAlreadyInCart = false;
+                            DataContextDataContext dbCheckShoppingCart = new DataContextDataContext();
+                            var checkCShoppingCart = from p in dbCheckShoppingCart.ShoppingCarts
+                                                     where p.productID == prodID && p.customerEmail == (string)Session["user"]
+                                                     select p;
 
-                            // Delete this product from wish list
-                            DataContextDataContext db3 = new DataContextDataContext();
-                            WishList deleteWishList = new WishList();
-                            var query = db3.WishLists.Where(wList => wList.productID == prodID).FirstOrDefault();
-                            db3.WishLists.DeleteOnSubmit(query);
-                            db3.SubmitChanges();
+                            foreach (var checkCart in checkCShoppingCart)
+                            {
+                                if (checkCart.productID == prodID)
+                                {
+                                    productAlreadyInCart = true;
+                                }
+                            }
 
-                            // Send user back to this page
-                            Response.Redirect("CustomerWishList.aspx");
+                            if (productAlreadyInCart == true)
+                            {
+                                Response.Write("<script>alert('" + "This item " + deductQty.productname + " has already been added to the Shopping Cart! And will be romove from your Wish List!" + "')</script>");
+
+                                // Delete this product from wish list
+                                DataContextDataContext dbDelete = new DataContextDataContext();
+                                WishList deleteWishList = new WishList();
+                                var query = dbDelete.WishLists.Where(wList => wList.productID == prodID).FirstOrDefault();
+                                dbDelete.WishLists.DeleteOnSubmit(query);
+                                dbDelete.SubmitChanges();
+
+                                HtmlMeta oScript = new HtmlMeta();
+                                oScript.Attributes.Add("http-equiv", "REFRESH");
+                                oScript.Attributes.Add("content", "0; url='CustomerWishList.aspx'");
+                                Page.Header.Controls.Add(oScript);
+                            }
+
+                            if (productAlreadyInCart == false)
+                            {
+                                // Add this product to shopping cart
+                                DataContextDataContext db2 = new DataContextDataContext();
+                                ShoppingCart newShoppingCart = new ShoppingCart();
+                                newShoppingCart.productID = prodID;
+                                newShoppingCart.productName = objArtistUpload.productname;
+                                newShoppingCart.quantity = 1;
+                                newShoppingCart.unitPrice = objArtistUpload.productPrice;
+                                newShoppingCart.customerEmail = (string)Session["user"];
+                                db2.ShoppingCarts.InsertOnSubmit(newShoppingCart);
+                                db2.SubmitChanges();
+
+                                // Delete this product from wish list
+                                DataContextDataContext db3 = new DataContextDataContext();
+                                WishList deleteWishList = new WishList();
+                                var query = db3.WishLists.Where(wList => wList.productID == prodID).FirstOrDefault();
+                                db3.WishLists.DeleteOnSubmit(query);
+                                db3.SubmitChanges();
+
+                                // Send user back to this page
+                                Response.Write("<script>alert('" + "This item " + deductQty.productname + " has successfully been added to the Shopping Cart! And will be romove from your Wish List!" + "')</script>");
+                                HtmlMeta oScript = new HtmlMeta();
+                                oScript.Attributes.Add("http-equiv", "REFRESH");
+                                oScript.Attributes.Add("content", "0; url='CustomerWishList.aspx'");
+                                Page.Header.Controls.Add(oScript);
+                            }
                         }
                         else
                         {
