@@ -39,9 +39,6 @@ namespace AssignmentPrototype
     partial void InsertPurchase(Purchase instance);
     partial void UpdatePurchase(Purchase instance);
     partial void DeletePurchase(Purchase instance);
-    partial void InsertPurchaseDetail(PurchaseDetail instance);
-    partial void UpdatePurchaseDetail(PurchaseDetail instance);
-    partial void DeletePurchaseDetail(PurchaseDetail instance);
     partial void InsertShoppingCart(ShoppingCart instance);
     partial void UpdateShoppingCart(ShoppingCart instance);
     partial void DeleteShoppingCart(ShoppingCart instance);
@@ -51,6 +48,9 @@ namespace AssignmentPrototype
     partial void InsertArtistTable(ArtistTable instance);
     partial void UpdateArtistTable(ArtistTable instance);
     partial void DeleteArtistTable(ArtistTable instance);
+    partial void InsertPurchaseDetail(PurchaseDetail instance);
+    partial void UpdatePurchaseDetail(PurchaseDetail instance);
+    partial void DeletePurchaseDetail(PurchaseDetail instance);
     #endregion
 		
 		public DataContextDataContext() : 
@@ -107,14 +107,6 @@ namespace AssignmentPrototype
 			}
 		}
 		
-		public System.Data.Linq.Table<PurchaseDetail> PurchaseDetails
-		{
-			get
-			{
-				return this.GetTable<PurchaseDetail>();
-			}
-		}
-		
 		public System.Data.Linq.Table<ShoppingCart> ShoppingCarts
 		{
 			get
@@ -136,6 +128,14 @@ namespace AssignmentPrototype
 			get
 			{
 				return this.GetTable<ArtistTable>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PurchaseDetail> PurchaseDetails
+		{
+			get
+			{
+				return this.GetTable<PurchaseDetail>();
 			}
 		}
 	}
@@ -161,8 +161,6 @@ namespace AssignmentPrototype
 		private System.Nullable<decimal> _productPrice;
 		
 		private System.Data.Linq.Binary _artImage;
-		
-		private EntitySet<PurchaseDetail> _PurchaseDetails;
 		
 		private EntitySet<ShoppingCart> _ShoppingCarts;
 		
@@ -194,7 +192,6 @@ namespace AssignmentPrototype
 		
 		public ArtistUpload()
 		{
-			this._PurchaseDetails = new EntitySet<PurchaseDetail>(new Action<PurchaseDetail>(this.attach_PurchaseDetails), new Action<PurchaseDetail>(this.detach_PurchaseDetails));
 			this._ShoppingCarts = new EntitySet<ShoppingCart>(new Action<ShoppingCart>(this.attach_ShoppingCarts), new Action<ShoppingCart>(this.detach_ShoppingCarts));
 			this._WishLists = new EntitySet<WishList>(new Action<WishList>(this.attach_WishLists), new Action<WishList>(this.detach_WishLists));
 			this._ArtistTable = default(EntityRef<ArtistTable>);
@@ -365,19 +362,6 @@ namespace AssignmentPrototype
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ArtistUpload_PurchaseDetail", Storage="_PurchaseDetails", ThisKey="productID", OtherKey="productID")]
-		public EntitySet<PurchaseDetail> PurchaseDetails
-		{
-			get
-			{
-				return this._PurchaseDetails;
-			}
-			set
-			{
-				this._PurchaseDetails.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ArtistUpload_ShoppingCart", Storage="_ShoppingCarts", ThisKey="productID", OtherKey="productID")]
 		public EntitySet<ShoppingCart> ShoppingCarts
 		{
@@ -458,18 +442,6 @@ namespace AssignmentPrototype
 			}
 		}
 		
-		private void attach_PurchaseDetails(PurchaseDetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.ArtistUpload = this;
-		}
-		
-		private void detach_PurchaseDetails(PurchaseDetail entity)
-		{
-			this.SendPropertyChanging();
-			entity.ArtistUpload = null;
-		}
-		
 		private void attach_ShoppingCarts(ShoppingCart entity)
 		{
 			this.SendPropertyChanging();
@@ -525,6 +497,8 @@ namespace AssignmentPrototype
 		
 		private EntitySet<WishList> _WishLists;
 		
+		private EntitySet<PurchaseDetail> _PurchaseDetails;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -554,6 +528,7 @@ namespace AssignmentPrototype
 			this._Purchases = new EntitySet<Purchase>(new Action<Purchase>(this.attach_Purchases), new Action<Purchase>(this.detach_Purchases));
 			this._ShoppingCarts = new EntitySet<ShoppingCart>(new Action<ShoppingCart>(this.attach_ShoppingCarts), new Action<ShoppingCart>(this.detach_ShoppingCarts));
 			this._WishLists = new EntitySet<WishList>(new Action<WishList>(this.attach_WishLists), new Action<WishList>(this.detach_WishLists));
+			this._PurchaseDetails = new EntitySet<PurchaseDetail>(new Action<PurchaseDetail>(this.attach_PurchaseDetails), new Action<PurchaseDetail>(this.detach_PurchaseDetails));
 			OnCreated();
 		}
 		
@@ -776,6 +751,19 @@ namespace AssignmentPrototype
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CustomerTable_PurchaseDetail", Storage="_PurchaseDetails", ThisKey="CustomerEmail", OtherKey="customerEmail")]
+		public EntitySet<PurchaseDetail> PurchaseDetails
+		{
+			get
+			{
+				return this._PurchaseDetails;
+			}
+			set
+			{
+				this._PurchaseDetails.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -827,6 +815,18 @@ namespace AssignmentPrototype
 		}
 		
 		private void detach_WishLists(WishList entity)
+		{
+			this.SendPropertyChanging();
+			entity.CustomerTable = null;
+		}
+		
+		private void attach_PurchaseDetails(PurchaseDetail entity)
+		{
+			this.SendPropertyChanging();
+			entity.CustomerTable = this;
+		}
+		
+		private void detach_PurchaseDetails(PurchaseDetail entity)
 		{
 			this.SendPropertyChanging();
 			entity.CustomerTable = null;
@@ -1031,205 +1031,6 @@ namespace AssignmentPrototype
 						this._customerEmail = default(string);
 					}
 					this.SendPropertyChanged("CustomerTable");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PurchaseDetails")]
-	public partial class PurchaseDetail : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _PurchaseHistoryDetailsID;
-		
-		private int _productID;
-		
-		private string _productName;
-		
-		private System.Nullable<int> _quantity;
-		
-		private System.Nullable<decimal> _unitPrice;
-		
-		private EntityRef<ArtistUpload> _ArtistUpload;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPurchaseHistoryDetailsIDChanging(int value);
-    partial void OnPurchaseHistoryDetailsIDChanged();
-    partial void OnproductIDChanging(int value);
-    partial void OnproductIDChanged();
-    partial void OnproductNameChanging(string value);
-    partial void OnproductNameChanged();
-    partial void OnquantityChanging(System.Nullable<int> value);
-    partial void OnquantityChanged();
-    partial void OnunitPriceChanging(System.Nullable<decimal> value);
-    partial void OnunitPriceChanged();
-    #endregion
-		
-		public PurchaseDetail()
-		{
-			this._ArtistUpload = default(EntityRef<ArtistUpload>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PurchaseHistoryDetailsID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int PurchaseHistoryDetailsID
-		{
-			get
-			{
-				return this._PurchaseHistoryDetailsID;
-			}
-			set
-			{
-				if ((this._PurchaseHistoryDetailsID != value))
-				{
-					this.OnPurchaseHistoryDetailsIDChanging(value);
-					this.SendPropertyChanging();
-					this._PurchaseHistoryDetailsID = value;
-					this.SendPropertyChanged("PurchaseHistoryDetailsID");
-					this.OnPurchaseHistoryDetailsIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productID", DbType="Int NOT NULL")]
-		public int productID
-		{
-			get
-			{
-				return this._productID;
-			}
-			set
-			{
-				if ((this._productID != value))
-				{
-					if (this._ArtistUpload.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnproductIDChanging(value);
-					this.SendPropertyChanging();
-					this._productID = value;
-					this.SendPropertyChanged("productID");
-					this.OnproductIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productName", DbType="NVarChar(100)")]
-		public string productName
-		{
-			get
-			{
-				return this._productName;
-			}
-			set
-			{
-				if ((this._productName != value))
-				{
-					this.OnproductNameChanging(value);
-					this.SendPropertyChanging();
-					this._productName = value;
-					this.SendPropertyChanged("productName");
-					this.OnproductNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
-		public System.Nullable<int> quantity
-		{
-			get
-			{
-				return this._quantity;
-			}
-			set
-			{
-				if ((this._quantity != value))
-				{
-					this.OnquantityChanging(value);
-					this.SendPropertyChanging();
-					this._quantity = value;
-					this.SendPropertyChanged("quantity");
-					this.OnquantityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unitPrice", DbType="Decimal(12,2)")]
-		public System.Nullable<decimal> unitPrice
-		{
-			get
-			{
-				return this._unitPrice;
-			}
-			set
-			{
-				if ((this._unitPrice != value))
-				{
-					this.OnunitPriceChanging(value);
-					this.SendPropertyChanging();
-					this._unitPrice = value;
-					this.SendPropertyChanged("unitPrice");
-					this.OnunitPriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ArtistUpload_PurchaseDetail", Storage="_ArtistUpload", ThisKey="productID", OtherKey="productID", IsForeignKey=true)]
-		public ArtistUpload ArtistUpload
-		{
-			get
-			{
-				return this._ArtistUpload.Entity;
-			}
-			set
-			{
-				ArtistUpload previousValue = this._ArtistUpload.Entity;
-				if (((previousValue != value) 
-							|| (this._ArtistUpload.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._ArtistUpload.Entity = null;
-						previousValue.PurchaseDetails.Remove(this);
-					}
-					this._ArtistUpload.Entity = value;
-					if ((value != null))
-					{
-						value.PurchaseDetails.Add(this);
-						this._productID = value.productID;
-					}
-					else
-					{
-						this._productID = default(int);
-					}
-					this.SendPropertyChanged("ArtistUpload");
 				}
 			}
 		}
@@ -2038,6 +1839,301 @@ namespace AssignmentPrototype
 		{
 			this.SendPropertyChanging();
 			entity.ArtistTable = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PurchaseDetails")]
+	public partial class PurchaseDetail : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PurchaseHistoryDetailsID;
+		
+		private int _productID;
+		
+		private string _productName;
+		
+		private System.Nullable<int> _quantity;
+		
+		private System.Nullable<decimal> _unitPrice;
+		
+		private string _customerEmail;
+		
+		private string _status;
+		
+		private string _sellerEmail;
+		
+		private System.Nullable<System.DateTime> _purchaseDate;
+		
+		private EntityRef<CustomerTable> _CustomerTable;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPurchaseHistoryDetailsIDChanging(int value);
+    partial void OnPurchaseHistoryDetailsIDChanged();
+    partial void OnproductIDChanging(int value);
+    partial void OnproductIDChanged();
+    partial void OnproductNameChanging(string value);
+    partial void OnproductNameChanged();
+    partial void OnquantityChanging(System.Nullable<int> value);
+    partial void OnquantityChanged();
+    partial void OnunitPriceChanging(System.Nullable<decimal> value);
+    partial void OnunitPriceChanged();
+    partial void OncustomerEmailChanging(string value);
+    partial void OncustomerEmailChanged();
+    partial void OnstatusChanging(string value);
+    partial void OnstatusChanged();
+    partial void OnsellerEmailChanging(string value);
+    partial void OnsellerEmailChanged();
+    partial void OnpurchaseDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnpurchaseDateChanged();
+    #endregion
+		
+		public PurchaseDetail()
+		{
+			this._CustomerTable = default(EntityRef<CustomerTable>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PurchaseHistoryDetailsID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int PurchaseHistoryDetailsID
+		{
+			get
+			{
+				return this._PurchaseHistoryDetailsID;
+			}
+			set
+			{
+				if ((this._PurchaseHistoryDetailsID != value))
+				{
+					this.OnPurchaseHistoryDetailsIDChanging(value);
+					this.SendPropertyChanging();
+					this._PurchaseHistoryDetailsID = value;
+					this.SendPropertyChanged("PurchaseHistoryDetailsID");
+					this.OnPurchaseHistoryDetailsIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productID", DbType="Int NOT NULL")]
+		public int productID
+		{
+			get
+			{
+				return this._productID;
+			}
+			set
+			{
+				if ((this._productID != value))
+				{
+					this.OnproductIDChanging(value);
+					this.SendPropertyChanging();
+					this._productID = value;
+					this.SendPropertyChanged("productID");
+					this.OnproductIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_productName", DbType="NVarChar(100)")]
+		public string productName
+		{
+			get
+			{
+				return this._productName;
+			}
+			set
+			{
+				if ((this._productName != value))
+				{
+					this.OnproductNameChanging(value);
+					this.SendPropertyChanging();
+					this._productName = value;
+					this.SendPropertyChanged("productName");
+					this.OnproductNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_quantity", DbType="Int")]
+		public System.Nullable<int> quantity
+		{
+			get
+			{
+				return this._quantity;
+			}
+			set
+			{
+				if ((this._quantity != value))
+				{
+					this.OnquantityChanging(value);
+					this.SendPropertyChanging();
+					this._quantity = value;
+					this.SendPropertyChanged("quantity");
+					this.OnquantityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_unitPrice", DbType="Decimal(12,2)")]
+		public System.Nullable<decimal> unitPrice
+		{
+			get
+			{
+				return this._unitPrice;
+			}
+			set
+			{
+				if ((this._unitPrice != value))
+				{
+					this.OnunitPriceChanging(value);
+					this.SendPropertyChanging();
+					this._unitPrice = value;
+					this.SendPropertyChanged("unitPrice");
+					this.OnunitPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_customerEmail", DbType="NVarChar(50)")]
+		public string customerEmail
+		{
+			get
+			{
+				return this._customerEmail;
+			}
+			set
+			{
+				if ((this._customerEmail != value))
+				{
+					if (this._CustomerTable.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OncustomerEmailChanging(value);
+					this.SendPropertyChanging();
+					this._customerEmail = value;
+					this.SendPropertyChanged("customerEmail");
+					this.OncustomerEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_status", DbType="NVarChar(50)")]
+		public string status
+		{
+			get
+			{
+				return this._status;
+			}
+			set
+			{
+				if ((this._status != value))
+				{
+					this.OnstatusChanging(value);
+					this.SendPropertyChanging();
+					this._status = value;
+					this.SendPropertyChanged("status");
+					this.OnstatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sellerEmail", DbType="NVarChar(50)")]
+		public string sellerEmail
+		{
+			get
+			{
+				return this._sellerEmail;
+			}
+			set
+			{
+				if ((this._sellerEmail != value))
+				{
+					this.OnsellerEmailChanging(value);
+					this.SendPropertyChanging();
+					this._sellerEmail = value;
+					this.SendPropertyChanged("sellerEmail");
+					this.OnsellerEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_purchaseDate", DbType="Date")]
+		public System.Nullable<System.DateTime> purchaseDate
+		{
+			get
+			{
+				return this._purchaseDate;
+			}
+			set
+			{
+				if ((this._purchaseDate != value))
+				{
+					this.OnpurchaseDateChanging(value);
+					this.SendPropertyChanging();
+					this._purchaseDate = value;
+					this.SendPropertyChanged("purchaseDate");
+					this.OnpurchaseDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="CustomerTable_PurchaseDetail", Storage="_CustomerTable", ThisKey="customerEmail", OtherKey="CustomerEmail", IsForeignKey=true)]
+		public CustomerTable CustomerTable
+		{
+			get
+			{
+				return this._CustomerTable.Entity;
+			}
+			set
+			{
+				CustomerTable previousValue = this._CustomerTable.Entity;
+				if (((previousValue != value) 
+							|| (this._CustomerTable.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._CustomerTable.Entity = null;
+						previousValue.PurchaseDetails.Remove(this);
+					}
+					this._CustomerTable.Entity = value;
+					if ((value != null))
+					{
+						value.PurchaseDetails.Add(this);
+						this._customerEmail = value.CustomerEmail;
+					}
+					else
+					{
+						this._customerEmail = default(string);
+					}
+					this.SendPropertyChanged("CustomerTable");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

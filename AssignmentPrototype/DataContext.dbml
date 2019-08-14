@@ -10,7 +10,6 @@
       <Column Name="productname" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="productPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
       <Column Name="artImage" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
-      <Association Name="ArtistUpload_PurchaseDetail" Member="PurchaseDetails" ThisKey="productID" OtherKey="productID" Type="PurchaseDetail" />
       <Association Name="ArtistUpload_ShoppingCart" Member="ShoppingCarts" ThisKey="productID" OtherKey="productID" Type="ShoppingCart" />
       <Association Name="ArtistUpload_WishList" Member="WishLists" ThisKey="productID" OtherKey="productID" Type="WishList" />
       <Association Name="ArtistTable_ArtistUpload" Member="ArtistTable" ThisKey="authorEmail" OtherKey="authorEmail" Type="ArtistTable" IsForeignKey="true" />
@@ -30,6 +29,7 @@
       <Association Name="CustomerTable_Purchase" Member="Purchases" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="Purchase" />
       <Association Name="CustomerTable_ShoppingCart" Member="ShoppingCarts" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="ShoppingCart" />
       <Association Name="CustomerTable_WishList" Member="WishLists" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="WishList" />
+      <Association Name="CustomerTable_PurchaseDetail" Member="PurchaseDetails" ThisKey="CustomerEmail" OtherKey="customerEmail" Type="PurchaseDetail" />
     </Type>
   </Table>
   <Table Name="dbo.Purchase" Member="Purchases">
@@ -41,16 +41,6 @@
       <Column Name="PaymentType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="customerEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="CustomerTable_Purchase" Member="CustomerTable" ThisKey="customerEmail" OtherKey="CustomerEmail" Type="CustomerTable" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.PurchaseDetails" Member="PurchaseDetails">
-    <Type Name="PurchaseDetail">
-      <Column Name="PurchaseHistoryDetailsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="productID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="productName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="unitPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
-      <Association Name="ArtistUpload_PurchaseDetail" Member="ArtistUpload" ThisKey="productID" OtherKey="productID" Type="ArtistUpload" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ShoppingCart" Member="ShoppingCarts">
@@ -88,6 +78,20 @@
       <Column Name="authorGender" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="authorDOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Association Name="ArtistTable_ArtistUpload" Member="ArtistUploads" ThisKey="authorEmail" OtherKey="authorEmail" Type="ArtistUpload" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PurchaseDetails" Member="PurchaseDetails">
+    <Type Name="PurchaseDetail">
+      <Column Name="PurchaseHistoryDetailsID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="productID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="productName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="unitPrice" Type="System.Decimal" DbType="Decimal(12,2)" CanBeNull="true" />
+      <Column Name="customerEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sellerEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="purchaseDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Association Name="CustomerTable_PurchaseDetail" Member="CustomerTable" ThisKey="customerEmail" OtherKey="CustomerEmail" Type="CustomerTable" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

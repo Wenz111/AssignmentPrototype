@@ -196,7 +196,7 @@ namespace AssignmentPrototype
                         }
                         else
                         {
-                            // Add the product with 1 quantity to the customer the wish list
+                            // Add the product with 1 quantity to the customer's wish list
                             Response.Write("<script>alert('" + "This item " + moveToWishList.productname + " is currently out of stock and has been added to your wish list!" + "')</script>");
                             updateToWishList.productID = moveToWishList.productID;
                             updateToWishList.quantity = 1;
@@ -275,10 +275,41 @@ namespace AssignmentPrototype
 
                     string bodyText = "Dear " + cusName + ", <br/>Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + decimal.Parse(PriceInTotal.Text) + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
                                        + "If you did not make this purchase kindly contact us at pika6084@gmail.com.";
-                    bodyText += "<br/><br/>Below is a summary of your current purchase:";
+                    bodyText += "<br/><br/>Below is a summary of your recent purchase:";
                     bodyText += "<table border=" + 1 + " cellpadding=" + 0 + " cellspacing=" + 0 + " width = " + 400 + "><tr bgcolor='#f5d442'><td><center><b>Product purchased</b></center></td><td><center><b>Quantity</b></center></td><td><center><b>Price (RM)</b></center></td></tr>";
 
-                    // for every item in shopping cart add to this email
+
+                    // For every item in shopping cart add to the Purchase Details Table
+                    if (clearShoppingCartTable != null)
+                    {
+                        foreach (var getShoppingCartItem in clearShoppingCartTable)
+                        {
+                            // Get seller email from Product ID
+                            DataContextDataContext dbGetSellerEmail = new DataContextDataContext();
+                            var getSellerEmail = (from p in dbGetSellerEmail.ArtistUploads
+                                                 where p.productID == getShoppingCartItem.productID
+                                                 select p).FirstOrDefault();
+
+                            // For every item in shopping cart add to the Purchase Details Table
+                            DataContextDataContext dbAddToPurchaseDetails = new DataContextDataContext();
+                            PurchaseDetail newPurchaseDetail = new PurchaseDetail();
+
+                            newPurchaseDetail.productID = getShoppingCartItem.productID;
+                            newPurchaseDetail.productName = getShoppingCartItem.productName;
+                            newPurchaseDetail.quantity = getShoppingCartItem.quantity;
+                            newPurchaseDetail.unitPrice = getShoppingCartItem.unitPrice;
+                            newPurchaseDetail.customerEmail = getShoppingCartItem.customerEmail;
+                            newPurchaseDetail.status = "Paid";
+                            newPurchaseDetail.sellerEmail = getSellerEmail.authorEmail;
+                            newPurchaseDetail.purchaseDate = DateTime.Now;
+
+                            dbAddToPurchaseDetails.PurchaseDetails.InsertOnSubmit(newPurchaseDetail);
+                            dbAddToPurchaseDetails.SubmitChanges();
+                        }
+                    }
+
+
+                    // For every item in shopping cart add to this email
                     if (clearShoppingCartTable != null)
                     {
                         foreach (var addToEmail in clearShoppingCartTable)
