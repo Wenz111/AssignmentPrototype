@@ -1,4 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteSeller.Master" AutoEventWireup="true" CodeBehind="SellerContactUs.aspx.cs" Inherits="AssignmentPrototype.SellerContactUs" %>
+
+<%@ Register TagPrefix="login" TagName="userLogin" Src="~/LoginStatus.ascx" %>
+<%@ Register TagPrefix="count" TagName="totalUser" Src="~/CountTotalUser.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
     Contact Us
 </asp:Content>
@@ -18,7 +22,12 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
+    
     <br />
+    <%--Login user control--%>
+    <login:userLogin ID="login_user" runat="server" />
+
+    <hr style="position: relative; top: -25px; border-top: 1px solid #ff5722" />
 
     Address:<br />
     S-40,67,Jalan Taman Ibu Kota,<br />
@@ -30,7 +39,14 @@
 
     Email:<br />
     abcbookstore@taruc.com
-    <br /><br />
+    <br />
+    <br />
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="footerContent" runat="server">
+
+    <hr style="border-top: 1px solid #ff5722" />
+    
+    <%--Count total user control--%>
+    <count:totalUser ID="total_user" runat="server" />
+
 </asp:Content>

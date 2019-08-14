@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteSeller.Master" AutoEventWireup="true" CodeBehind="SellerActivity.aspx.cs" Inherits="AssignmentPrototype.SellerActivity" %>
 
+<%@ Register TagPrefix="login" TagName="userLogin" Src="~/LoginStatus.ascx" %>
+<%@ Register TagPrefix="count" TagName="totalUser" Src="~/CountTotalUser.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
     Seller's Activity
 </asp:Content>
@@ -121,6 +124,13 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
 
+    <br />
+
+    <%--Login user control--%>
+    <login:userLogin ID="login_user" runat="server" />
+
+    <hr style="position: relative; top: -20px; border-top: 1px solid #ff5722" />
+
     <h1>You've recently uploaded these arts for sales</h1>
 
     <asp:DataList ID="DataList1" runat="server" OnEditCommand="DataList1_EditCommand" OnUpdateCommand="DataList1_UpdateCommand" OnCancelCommand="DataList1_CancelCommand" OnDeleteCommand="DataList1_DeleteCommand">
@@ -195,4 +205,10 @@
 
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="footerContent" runat="server">
+
+    <hr style="border-top: 1px solid #ff5722" />
+    
+    <%--Count total user control--%>
+    <count:totalUser ID="total_user" runat="server" />
+
 </asp:Content>

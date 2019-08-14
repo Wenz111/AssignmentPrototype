@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace AssignmentPrototype
 {
@@ -6,7 +7,10 @@ namespace AssignmentPrototype
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["seller"] == null)
+            {
 
+            }
         }
     }
 }

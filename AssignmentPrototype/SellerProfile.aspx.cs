@@ -11,6 +11,13 @@ namespace AssignmentPrototype
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["seller"] == null)
+            {
+                string OriginalUrl = HttpContext.Current.Request.RawUrl;
+                string LoginPageUrl = "SellerLogin.aspx";
+                HttpContext.Current.Response.Redirect(String.Format("{0}?ReturnUrl={1}", LoginPageUrl, OriginalUrl));
+            }
+
             if (!IsPostBack)
             {
                 if (Session["seller"] == null)
@@ -63,13 +70,6 @@ namespace AssignmentPrototype
                 // executes the commands to implement the changes to the database
                 objDataContext.SubmitChanges();
             }
-        }
-
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Session.Remove("seller");
-            Session.RemoveAll(); //Removes all session variables
-            Response.Redirect("MainPage.aspx");
         }
     }
 }

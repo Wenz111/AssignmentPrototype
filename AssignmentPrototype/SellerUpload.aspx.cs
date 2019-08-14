@@ -15,7 +15,9 @@ namespace AssignmentPrototype
         {
             if (Session["seller"] == null)
             {
-                Response.Redirect("SellerLogin.aspx");
+                string OriginalUrl = HttpContext.Current.Request.RawUrl;
+                string LoginPageUrl = "SellerLogin.aspx";
+                HttpContext.Current.Response.Redirect(String.Format("{0}?ReturnUrl={1}", LoginPageUrl, OriginalUrl));
             }
         }
 

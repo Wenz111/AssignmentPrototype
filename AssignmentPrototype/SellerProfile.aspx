@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteSeller.Master" AutoEventWireup="true" CodeBehind="SellerProfile.aspx.cs" Inherits="AssignmentPrototype.SellerProfile" %>
 
+<%@ Register TagPrefix="login" TagName="userLogin" Src="~/LoginStatus.ascx" %>
+<%@ Register TagPrefix="count" TagName="totalUser" Src="~/CountTotalUser.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
     Seller's Profile
 </asp:Content>
@@ -64,7 +67,7 @@
             -webkit-appearance: button
         }
 
-                .auto-style2 {
+        .auto-style2 {
             width: 253px;
         }
 
@@ -121,7 +124,12 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="contentBody" runat="server">
     <br />
-        <asp:Button ID="btnLogout" runat="server" Text="Logout" style="position:absolute; margin-left:850px;" OnClick="btnLogout_Click" />
+    
+    <%--Login user control--%>
+    <login:userLogin ID="login_user" runat="server" />
+
+    <hr style="position: relative; top: -30px; border-top: 1px solid #ff5722" />
+
     <table class="auto-style23">
         <tr>
             <td class="auto-style21">Name:</td>
@@ -170,4 +178,10 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="footerContent" runat="server">
+
+    <hr style="border-top: 1px solid #ff5722" />
+    
+    <%--Count total user control--%>
+    <count:totalUser ID="total_user" runat="server" />
+
 </asp:Content>

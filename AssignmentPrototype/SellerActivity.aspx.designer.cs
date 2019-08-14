@@ -13,6 +13,15 @@ namespace AssignmentPrototype {
     public partial class SellerActivity {
         
         /// <summary>
+        /// login_user control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AssignmentPrototype.LoginStatus login_user;
+        
+        /// <summary>
         /// DataList1 control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace AssignmentPrototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataList DataList1;
+        
+        /// <summary>
+        /// total_user control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AssignmentPrototype.CountTotalUser total_user;
     }
 }

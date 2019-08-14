@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SiteCustomer.Master" AutoEventWireup="true" CodeBehind="CustomerProfile.aspx.cs" Inherits="AssignmentPrototype.CustomerProfile" %>
 
+<%@ Register TagPrefix="count" TagName="totalUser" Src="~/CountTotalUser.ascx" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="title" runat="server">
     Customer's Profile
 </asp:Content>
@@ -168,4 +170,10 @@
 </asp:Content>
 
 <asp:Content ID="Content4" ContentPlaceHolderID="footerContent" runat="server">
+
+    <hr style="border-top: 1px solid #ff5722" />
+    
+    <%--Count total user control--%>
+    <count:totalUser ID="total_user" runat="server" />
+
 </asp:Content>
