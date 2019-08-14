@@ -119,21 +119,92 @@ namespace AssignmentPrototype
                 DataContextDataContext db3 = new DataContextDataContext();
                 WishList updateToWishList = new WishList();
 
-                if (deductProductQty != null)
-                {
-                    foreach (var deductQty in deductProductQty)
+                // Check if quantity of item is 0 
+                // Then remove item from Shopping Cart
+                // And add to wish list
+                // If Wish List already have that item then prompt another error message
+
+                // -------------------------------------------------------------------------------------------------------
+
+                // Get Product quantity from seller and deduct it
+                DataContextDataContext dbValidate = new DataContextDataContext();
+                var checkProductQty = from p in dbValidate.ArtistUploads
+                                      join o in dbValidate.ShoppingCarts on p.productID equals o.productID
+                                      where p.productID == o.productID
+                                      select p;
+
+                // Boolean if true then assign that product ID into an array
+                // Then add it to Wish List
+                // Else perform the rest
+                List<int> prodId = new List<int>();
+                Boolean checkForItemLessThanZero = false;
+
+
+                    foreach (var checkQty in checkProductQty)
                     {
-                        if (deductQty.quantity > 0)
+                        if (checkQty.quantity == 0)
                         {
-                            deductQty.quantity = deductQty.quantity - 1;
+                            prodId.Add(checkQty.productID);
+                            checkForItemLessThanZero = true;
+                    }
+                    }
+                    
+
+                // Add the item that have less than 0 quantity into their Wish List
+                if (checkForItemLessThanZero == true)
+                {
+                    for (int i = 0; i < prodId.Count(); i++)
+                    {
+                        // Move item from Shopping Cart to Wish List
+                        DataContextDataContext dbToWishList = new DataContextDataContext();
+                        var moveToWishList = dbToWishList.ArtistUploads.Where(w => w.productID == prodId[i]).FirstOrDefault();
+
+                        // Check if the item is already in wish list
+                        // If it is then don't add to wish list
+                        // Show an error message that the item is currently out of stock and can be found in your wish list
+                        // Get product ID from wish list and compare if added already then prompt 
+                        // the product has already been added to your wishlist and return to their Customer Wish List
+                        DataContextDataContext dbValidate1 = new DataContextDataContext();
+                        var currentWishList = from p in dbValidate1.WishLists
+                                              select p;
+
+                        DataContextDataContext db = new DataContextDataContext();
+                        WishList newWishList = new WishList();
+
+                        int tempProductId = moveToWishList.productID;
+                        Boolean productIdExists = false;
+
+                        // Same item cannot Add to Wish List
+                        foreach (var getProductId in currentWishList)
+                        {
+                            if (getProductId.productID == tempProductId)
+                            {
+                                productIdExists = true;
+                            }
+                        }
+
+                        // ####################################################################################################
+
+                        if (productIdExists == true)
+                        {
+                            Response.Write("<script>alert('" + "The item " + moveToWishList.productname + " is currently out of stock and can be found in your wish list!" + "')</script>");
+
+                            // Clear Shopping Cart for out of stock item
+                            DataContextDataContext db4 = new DataContextDataContext();
+                            var clearOutOfStockCart = from p in db4.ShoppingCarts
+                                                      where p.customerEmail == (string)Session["user"] && p.productID == moveToWishList.productID
+                                                      select p;
+
+                            db4.ShoppingCarts.DeleteAllOnSubmit(clearOutOfStockCart.ToList());
+                            db4.SubmitChanges();
                         }
                         else
                         {
-                            // Add the product with 0 quantity to the customer the wish list
-                            Response.Write("<script>alert('" + "This item " + deductQty.productname + " is currently out of stock and has been added to your wish list!" + "')</script>");
-                            updateToWishList.productID = deductQty.productID;
+                            // Add the product with 1 quantity to the customer the wish list
+                            Response.Write("<script>alert('" + "This item " + moveToWishList.productname + " is currently out of stock and has been added to your wish list!" + "')</script>");
+                            updateToWishList.productID = moveToWishList.productID;
                             updateToWishList.quantity = 1;
-                            updateToWishList.unitPrice = deductQty.productPrice;
+                            updateToWishList.unitPrice = moveToWishList.productPrice;
                             updateToWishList.customerEmail = (string)Session["user"];
                             db3.WishLists.InsertOnSubmit(updateToWishList);
                             db3.SubmitChanges();
@@ -141,34 +212,59 @@ namespace AssignmentPrototype
                             // Clear Shopping Cart for out of stock item
                             DataContextDataContext db4 = new DataContextDataContext();
                             var clearOutOfStockCart = from p in db4.ShoppingCarts
-                                                      where p.customerEmail == (string)Session["user"] && p.productID == deductQty.productID
+                                                      where p.customerEmail == (string)Session["user"] && p.productID == moveToWishList.productID
                                                       select p;
 
                             db4.ShoppingCarts.DeleteAllOnSubmit(clearOutOfStockCart.ToList());
                             db4.SubmitChanges();
                         }
                     }
-                    db1.SubmitChanges();
+                    Response.Write("<script>alert('The item(s) can be found in your Wish List!\\nKindly Click on Make Payment to confirm checkout for the other items!')</script>");
+                    HtmlMeta oScript = new HtmlMeta();
+                    oScript.Attributes.Add("http-equiv", "REFRESH");
+                    oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
+                    Page.Header.Controls.Add(oScript);
                 }
 
-                // Clear Shopping Cart
-                DataContextDataContext db2 = new DataContextDataContext();
-                var clearShoppingCartTable = from p in db2.ShoppingCarts
-                                             where p.customerEmail == (string)Session["user"]
-                                             select p;
+                // -------------------------------------------------------------------------------------------------------
 
-                if (clearShoppingCartTable != null)
+                // Reload the page, if item move to wish list, then ask the buyer to make purchase again
+
+                if (checkForItemLessThanZero == false)
                 {
-                    db2.ShoppingCarts.DeleteAllOnSubmit(clearShoppingCartTable.ToList());
-                    db2.SubmitChanges();
+                    if (deductProductQty != null)
+                    {
+                        foreach (var deductQty in deductProductQty)
+                        {
+                            if (deductQty.quantity > 0)
+                            {
+                                deductQty.quantity = deductQty.quantity - 1;
+                            }
+                        }
+                        db1.SubmitChanges();
+                    }
+
+                    // Clear Shopping Cart
+                    DataContextDataContext db2 = new DataContextDataContext();
+                    var clearShoppingCartTable = from p in db2.ShoppingCarts
+                                                 where p.customerEmail == (string)Session["user"]
+                                                 select p;
+
+                    if (clearShoppingCartTable != null)
+                    {
+                        db2.ShoppingCarts.DeleteAllOnSubmit(clearShoppingCartTable.ToList());
+                        db2.SubmitChanges();
+
+                        // Display Payment made
+                        Response.Write("<script>alert('Your order has succesfully made!')</script>");
+                        HtmlMeta oScript = new HtmlMeta();
+                        oScript.Attributes.Add("http-equiv", "REFRESH");
+                        oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
+                        Page.Header.Controls.Add(oScript);
+                    }
                 }
 
-                // Display Payment made
-                Response.Write("<script>alert('Your order has succesfully made!')</script>");
-                HtmlMeta oScript = new HtmlMeta();
-                oScript.Attributes.Add("http-equiv", "REFRESH");
-                oScript.Attributes.Add("content", "0; url='CustomerShoppingCart.aspx'");
-                Page.Header.Controls.Add(oScript);
+                
 
                 // Send email to the customer (Part 2 extension) + use string builder to customize email's body content
                 //SmtpClient client = new SmtpClient();

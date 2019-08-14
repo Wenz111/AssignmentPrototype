@@ -45,7 +45,7 @@
             </asp:BoundField>
              <asp:TemplateField HeaderText="Quantity">
                  <ItemTemplate>
-                <asp:TextBox ID="txtq" runat="server" Text='<%# Bind("quantity") %>' Height="20px" Width="40px" />
+                <asp:TextBox ID="txtq" runat="server" Enabled="false" style="text-align: center" Text='<%# Bind("quantity") %>' Height="20px" Width="40px" />
                 </ItemTemplate>
                  <ItemStyle HorizontalAlign="Center" />
             </asp:TemplateField>
