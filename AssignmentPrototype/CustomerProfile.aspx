@@ -127,18 +127,21 @@
             <td class="auto-style21">Name:</td>
             <td class="auto-style4">
                 <asp:TextBox ID="cusName" runat="server" Height="20px" Width="312px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="cusName" InitialValue="" ErrorMessage="Name is required" ForeColor="Red">*</asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
             <td class="auto-style27">Gender:</td>
             <td class="auto-style28">
-                <asp:TextBox ID="cusGender" runat="server" Height="20px" Width="316px"></asp:TextBox>
+                <asp:TextBox ID="cusGender" runat="server" Height="20px" Width="316px" Enabled="false"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="auto-style29">H/P No:</td>
             <td>
                 <asp:TextBox ID="cusPhoneNum" runat="server" Height="20px" Width="316px"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="cusPhoneNum" InitialValue="" ForeColor="Red" runat="server" ErrorMessage="Phone Number is Required">*</asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="cusPhoneNum" runat="server" ValidationExpression="^(\+?6?01)[0-46-9]-*[0-9]{7,8}$" ErrorMessage="Phone number should be in this format XXX-XXXXXXX">*</asp:RegularExpressionValidator>
             </td>
         </tr>
         <tr>
@@ -150,14 +153,18 @@
         <tr>
             <td class="auto-style2">Date Of Birth:</td>
             <td>
-                <asp:TextBox ID="cusDOB" runat="server" Height="20px" Width="212px"></asp:TextBox>
+                <asp:TextBox ID="cusDOB" runat="server" Height="20px" Width="212px" Enabled="false"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="auto-style24">Shipping Address:</td>
             <td class="auto-style25">
                 <asp:TextBox ID="cusHouseAddress" runat="server" Height="110px" Width="219px" TextMode="MultiLine"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="cusHouseAddress" InitialValue="" ForeColor="Red" runat="server" ErrorMessage="House Address is Required">*</asp:RequiredFieldValidator>
             </td>
+        </tr>
+        <tr>
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="The following problems have been encountered" />
         </tr>
         <tr>
             <td class="auto-style22" colspan="2">
