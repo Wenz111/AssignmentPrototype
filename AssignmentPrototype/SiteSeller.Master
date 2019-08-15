@@ -187,6 +187,7 @@
         <ul>
            <li class='active1'><a href='SellerUpload.aspx'><span>Upload</span></a></li>
             <li class='active2'><a href='SellerActivity.aspx'><span>Activity</span></a></li>
+            <li class='active5'><a href='SellerArtsSold.aspx'><span>Arts Sold</span></a></li>
             <li class='active3'><a href='SellerProfile.aspx'><span>Profile</span></a></li>
            <li class='active4'><a href='SellerContactUs.aspx'><span>Contact Us</span></a></li>
         </ul>

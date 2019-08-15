@@ -1866,6 +1866,8 @@ namespace AssignmentPrototype
 		
 		private System.Nullable<System.DateTime> _purchaseDate;
 		
+		private System.Data.Linq.Binary _artImage;
+		
 		private EntityRef<CustomerTable> _CustomerTable;
 		
     #region Extensibility Method Definitions
@@ -1890,6 +1892,8 @@ namespace AssignmentPrototype
     partial void OnsellerEmailChanged();
     partial void OnpurchaseDateChanging(System.Nullable<System.DateTime> value);
     partial void OnpurchaseDateChanged();
+    partial void OnartImageChanging(System.Data.Linq.Binary value);
+    partial void OnartImageChanged();
     #endregion
 		
 		public PurchaseDetail()
@@ -2078,6 +2082,26 @@ namespace AssignmentPrototype
 					this._purchaseDate = value;
 					this.SendPropertyChanged("purchaseDate");
 					this.OnpurchaseDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_artImage", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary artImage
+		{
+			get
+			{
+				return this._artImage;
+			}
+			set
+			{
+				if ((this._artImage != value))
+				{
+					this.OnartImageChanging(value);
+					this.SendPropertyChanging();
+					this._artImage = value;
+					this.SendPropertyChanged("artImage");
+					this.OnartImageChanged();
 				}
 			}
 		}

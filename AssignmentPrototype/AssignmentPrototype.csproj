@@ -93,6 +93,7 @@
     <Content Include="ProductDetail.aspx" />
     <Content Include="PurchaseHistory.aspx" />
     <Content Include="SellerActivity.aspx" />
+    <Content Include="SellerArtsSold.aspx" />
     <Content Include="SellerContactUs.aspx" />
     <Content Include="SellerLogin.aspx" />
     <Content Include="SellerProfile.aspx" />
@@ -202,6 +203,13 @@
     </Compile>
     <Compile Include="SellerActivity.aspx.designer.cs">
       <DependentUpon>SellerActivity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SellerArtsSold.aspx.cs">
+      <DependentUpon>SellerArtsSold.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerArtsSold.aspx.designer.cs">
+      <DependentUpon>SellerArtsSold.aspx</DependentUpon>
     </Compile>
     <Compile Include="SellerContactUs.aspx.cs">
       <DependentUpon>SellerContactUs.aspx</DependentUpon>

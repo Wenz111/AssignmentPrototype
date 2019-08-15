@@ -273,10 +273,10 @@ namespace AssignmentPrototype
                     CustomerTable objCustomerName = dbGetName.CustomerTables.Single(cus => cus.CustomerEmail == Session["user"]);
                     string cusName = objCustomerName.CustomerName;
 
-                    string bodyText = "Dear " + cusName + ", <br/>Thank you for your purchase using Pika Art Gallery, you've spend a total of RM " + decimal.Parse(PriceInTotal.Text) + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
-                                       + "If you did not make this purchase kindly contact us at pika6084@gmail.com.";
+                    string bodyText = "Dear " + cusName + ", <br/>Thank you for your recent purchase on Pika Art Gallery, you've spend a total of RM " + decimal.Parse(PriceInTotal.Text) + " on " + DateTime.Now.ToShortDateString() + ", " + DateTime.Now.ToShortTimeString() + "."
+                                       + " If you did not make this purchase kindly contact us at pika6084@gmail.com.";
                     bodyText += "<br/><br/>Below is a summary of your recent purchase:";
-                    bodyText += "<table border=" + 1 + " cellpadding=" + 0 + " cellspacing=" + 0 + " width = " + 400 + "><tr bgcolor='#f5d442'><td><center><b>Product purchased</b></center></td><td><center><b>Quantity</b></center></td><td><center><b>Price (RM)</b></center></td></tr>";
+                    bodyText += "<table border=" + 1 + " cellpadding=" + 0 + " cellspacing=" + 0 + " width = " + 400 + "><tr bgcolor='#f5d442'><td><center><b>Product Purchased</b></center></td><td><center><b>Quantity</b></center></td><td><center><b>Price (RM)</b></center></td></tr>";
 
 
                     // For every item in shopping cart add to the Purchase Details Table
@@ -302,6 +302,7 @@ namespace AssignmentPrototype
                             newPurchaseDetail.status = "Paid";
                             newPurchaseDetail.sellerEmail = getSellerEmail.authorEmail;
                             newPurchaseDetail.purchaseDate = DateTime.Now;
+                            newPurchaseDetail.artImage = getSellerEmail.artImage;
 
                             dbAddToPurchaseDetails.PurchaseDetails.InsertOnSubmit(newPurchaseDetail);
                             dbAddToPurchaseDetails.SubmitChanges();
@@ -330,7 +331,7 @@ namespace AssignmentPrototype
                     client.UseDefaultCredentials = false;
                     client.Credentials = new System.Net.NetworkCredential("pika6084@gmail.com", "pikachu@6084");
 
-                    MailMessage mm = new MailMessage("donotreply@domain.com", "angzw-wm17@student.tarc.edu.my", "Pika Art Gallery Payment Receipt", bodyText);
+                    MailMessage mm = new MailMessage("donotreply@domain.com", (string)Session["user"], "Pika Art Gallery Receipt", bodyText);
                     mm.IsBodyHtml = true;
                     mm.BodyEncoding = UTF8Encoding.UTF8;
                     mm.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;

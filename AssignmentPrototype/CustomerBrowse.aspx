@@ -90,7 +90,7 @@
 
     <div class="clear"></div>--%>
 
-    <h1>Welcome to Art Gallery!</h1>
+    <h1>Welcome to Pika Art Gallery!</h1>
 
     <div class="clear"></div>
 

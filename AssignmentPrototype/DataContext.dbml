@@ -91,6 +91,7 @@
       <Column Name="status" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="sellerEmail" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="purchaseDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="artImage" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
       <Association Name="CustomerTable_PurchaseDetail" Member="CustomerTable" ThisKey="customerEmail" OtherKey="CustomerEmail" Type="CustomerTable" IsForeignKey="true" />
     </Type>
   </Table>

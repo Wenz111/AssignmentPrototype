@@ -172,7 +172,11 @@
                     <asp:TextBox ID="cusHouseAddress" runat="server"></asp:TextBox>
 
                     <asp:Button ID="btnSignUp" runat="server" class="signup-btn" OnClick="btnSignUp_Click" Text="Sign Up" />
-                
+
+                    <div style="position: relative; top: 30px; left: 245px;">
+                        <span><a href="CustomerLogin.aspx">Already Have An Account?</a></span>
+                    </div>
+
                     <div style="position: relative; top: 40px; left: -100px;">
                     <asp:ValidationSummary ID="ValidationSummary1" ForeColor="#333300" runat="server" HeaderText="The following problems have been encountered" />
                     </div>
