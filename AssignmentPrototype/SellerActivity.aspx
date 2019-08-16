@@ -160,7 +160,7 @@
                         <br />
                         <span class="fontStyle">Quantity: <h4><asp:TextBox ID="TextBox3" runat="server" Text='<%# Bind("quantity") %>'></asp:TextBox></h4></span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox3" ErrorMessage="Art Quantity cannot be empty">*</asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBox3" ValidationExpression="^[1-9][0-9]?$|^100$" ErrorMessage="Art Quantity can only be between 1 to 100, no decimal points allow!">*</asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TextBox3" ValidationExpression="^([0-9]|[1-9][0-9]|100)$" ErrorMessage="Art Quantity can only be between 0 to 100, no decimal points allow!">*</asp:RegularExpressionValidator>
                     </td>
                     <td style="width: 200px;">RM </span><h4><asp:TextBox ID="TextBox4" runat="server" Text='<%# Bind("productPrice") %>' Width="70px"></asp:TextBox></h4></span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="TextBox4" runat="server" ErrorMessage="Art Price cannot be empty">*</asp:RequiredFieldValidator>

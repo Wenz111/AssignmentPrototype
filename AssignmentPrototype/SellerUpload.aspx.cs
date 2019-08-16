@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -47,10 +48,20 @@ namespace AssignmentPrototype
             }
             else
             {
-                newArtistUpload.artImage = pic;
-                db.ArtistUploads.InsertOnSubmit(newArtistUpload);
-                db.SubmitChanges();
-                Response.Write("<script>alert('Upload successful')</script>");
+                // Validate only allows the seller to upload image of type
+                // jpg, JPG, jpeg, JPEG, png, PNG, gif, GIF, bmp, BMP
+                Regex regex = new Regex(@"(.*?)\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|bmp|BMP)$");
+                if (regex.IsMatch(FileUpload2.FileName))
+                {
+                    newArtistUpload.artImage = pic;
+                    db.ArtistUploads.InsertOnSubmit(newArtistUpload);
+                    db.SubmitChanges();
+                    Response.Write("<script>alert('Upload successful')</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Upload can only be image of type jpg, JPG, jpeg, JPEG, png, PNG, gif, GIF, bmp, BMP')</script>");
+                }
             }
         }
     }

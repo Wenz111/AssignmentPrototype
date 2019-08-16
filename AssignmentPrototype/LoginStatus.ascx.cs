@@ -60,7 +60,6 @@ namespace AssignmentPrototype
         protected void logoutBtnMain_Click(object sender, EventArgs e)
         {
             Session.Remove("seller");
-            Session.RemoveAll(); //Removes all session variables
             Response.Redirect("MainPage.aspx");
         }
     }

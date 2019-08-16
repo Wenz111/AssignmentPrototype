@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -59,8 +60,19 @@ namespace AssignmentPrototype
                 // If have update image then save into the database
                 if (updateImage.HasFile)
                 {
-                    currentArtistUpload.artImage = img;
-                }
+                    
+                    // Validate only allows the seller to upload image of type
+                    // jpg, JPG, jpeg, JPEG, png, PNG, gif, GIF, bmp, BMP
+                    Regex regex = new Regex(@"(.*?)\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF|bmp|BMP)$");
+                    if (regex.IsMatch(updateImage.FileName))
+                    {
+                        currentArtistUpload.artImage = img;
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('Upload can only be image of type jpg, JPG, jpeg, JPEG, png, PNG, gif, GIF, bmp, BMP, your changes made to this image has been rejected!')</script>");
+                    }
+            }
 
                 TextBox txtTemp = DataList1.Items[e.Item.ItemIndex].FindControl("TextBox1") as TextBox;
                 if (txtTemp != null)
